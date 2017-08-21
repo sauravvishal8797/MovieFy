@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
 
     private ArrayList<Movies> movies;
+
+    private ProgressBar progressBar;
 
     private int i;
 
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         movies = new ArrayList<>();
         movies = getData();
         MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext());
+
         recyclerView.setAdapter(moviesAdapter);
         
 
