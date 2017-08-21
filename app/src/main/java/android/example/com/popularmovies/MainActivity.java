@@ -1,14 +1,24 @@
 package android.example.com.popularmovies;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+
+import java.net.URL;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.JavaClasses.Movies;
+import android.example.com.popularmovies.JavaClasses.NetworkUtils;
+import android.os.AsyncTask;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -25,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private int i;
+
+    private static final String URL = "https://api.themoviedb" +
+            ".org/3/discover/movie?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US&sort_by=popularity" +
+            ".desc&include_adult=false&include_video=false";
+
+    private static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
+
+    private static final String BASE_URL = "http://image.tmdb.org/t/p/w185/";
+
 
     private String[] Android_version = {
             "Donut",
@@ -59,16 +78,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         movies = new ArrayList<>();
-        movies = getData();
-        MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext());
+        new GetMoviesTask().execute(URL);
 
-        recyclerView.setAdapter(moviesAdapter);
         
 
 
@@ -87,5 +105,53 @@ public class MainActivity extends AppCompatActivity {
         }
         return moviesArrayList;
 
+    }
+
+    class GetMoviesTask extends AsyncTask<String, Void, ArrayList<Movies>>{
+
+        private ArrayList<Movies> movies;
+        private String Jsonresponse = " ";
+
+        @Override protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override protected ArrayList<Movies> doInBackground(String... strings) {
+
+            movies = new ArrayList<>();
+            String url = strings[0];
+            URL url1 = NetworkUtils.CreateUrl(url);
+            Jsonresponse = NetworkUtils.MakeHttpRequest(url1);
+            try {
+                JSONObject root = new JSONObject(Jsonresponse);
+                JSONArray array = root.getJSONArray("results");
+                for(i = 0; i < array.length(); i++){
+                    JSONObject object = array.getJSONObject(i);
+                    String name = object.getString("title");
+                    String posterurl = object.getString("backdrop");
+                    Movies m = new Movies();
+                    m.setUrl(posterurl);
+                    m.SetName(name);
+                    movies.add(m);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return movies;
+        }
+
+        @Override protected void onPostExecute(ArrayList<Movies> movies) {
+            super.onPostExecute(movies);
+            if(movies != null){
+                MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext());
+                recyclerView.setAdapter(moviesAdapter);
+            }
+            else{
+                Log.e(LOG_TAG, "Null arraylist returned");
+            }
+        }
     }
 }
