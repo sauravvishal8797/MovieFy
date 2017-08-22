@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int i;
 
-    private static final String URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=e2a51d701ca40655dbb7d5156ff2f42e&page=1";
+    private static final String URL = "https://api.themoviedb" +
+            ".org/3/movie/now_playing?api_key=e2a51d701ca40655dbb7d5156ff2f42e&page=1";
 
     private static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
 
@@ -82,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
-        recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
