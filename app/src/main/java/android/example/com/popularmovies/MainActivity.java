@@ -9,11 +9,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.provider.BaseColumns;
+import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +29,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,15 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
 
-    private ArrayList<Movies> movies;
-
-    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
 
     private int i;
 
-    private static final String URL = "https://api.themoviedb" +
-            ".org/3/discover/movie?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US&sort_by=popularity" +
-            ".desc&include_adult=false&include_video=false";
+    private static final String URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=e2a51d701ca40655dbb7d5156ff2f42e&page=1";
 
     private static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
 
@@ -78,14 +83,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
-
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        movies = new ArrayList<>();
-        new GetMoviesTask().execute(URL);
+        Checknetworkinfo();
+
+
 
         
 
@@ -107,6 +111,46 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void Checknetworkinfo(){
+
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected){
+
+            new GetMoviesTask().execute(URL);
+
+
+
+
+
+        }
+        else{
+            Snackbar.make(coordinatorLayout, "Internet connection is off", Snackbar.LENGTH_LONG)
+                    .setAction("Settings", new View.OnClickListener() {
+                        @Override public void onClick(View view) {
+
+                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                            startActivity(intent);
+
+                        }
+                    }).show();
+
+
+
+
+
+
+        }
+
+
+
+
+    }
+
     class GetMoviesTask extends AsyncTask<String, Void, ArrayList<Movies>>{
 
         private ArrayList<Movies> movies;
@@ -114,8 +158,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setTitle("LOading");
+            progressDialog.show();
         }
 
         @Override protected ArrayList<Movies> doInBackground(String... strings) {
@@ -130,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
                 for(i = 0; i < array.length(); i++){
                     JSONObject object = array.getJSONObject(i);
                     String name = object.getString("title");
-                    String posterurl = object.getString("backdrop");
+                    String posterurl = object.getString("backdrop_path");
                     Movies m = new Movies();
-                    m.setUrl(posterurl);
+                    m.setUrl(BASE_URL + posterurl);
                     m.SetName(name);
                     movies.add(m);
 
@@ -145,7 +190,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override protected void onPostExecute(ArrayList<Movies> movies) {
             super.onPostExecute(movies);
+            Log.i(LOG_TAG, "It works");
             if(movies != null){
+                Log.i(LOG_TAG, "HH");
+                progressDialog.dismiss();
                 MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext());
                 recyclerView.setAdapter(moviesAdapter);
             }
