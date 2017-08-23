@@ -1,5 +1,6 @@
 package android.example.com.popularmovies;
 
+import static android.R.attr.ems;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 import java.net.URL;
@@ -12,9 +13,11 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
+import android.example.com.popularmovies.JavaClasses.OnItemClickListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -22,33 +25,54 @@ import android.provider.BaseColumns;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener {
 
     private RecyclerView recyclerView;
 
+    private ListView listView;
+
+    private DrawerLayout drawerLayout;
+
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
+    private String [] Items;
+
+    private OnItemClickListener OnItemClickListener;
+
     private CoordinatorLayout coordinatorLayout;
+
+    private ArrayAdapter<String> arrayAdapter;
 
     private ProgressDialog progressDialog;
 
     private int i;
 
-    private static final String URL = "https://api.themoviedb" +
-            ".org/3/movie/now_playing?api_key=e2a51d701ca40655dbb7d5156ff2f42e&page=1";
+    private static final String URL = "https://api.themoviedb.org/3/movie/popular?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
 
     private static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
 
     private static final String BASE_URL = "http://image.tmdb.org/t/p/w185/";
+
+    private static final String MOVIE_TITLE = "Title";
+
+    private static final String RELEASE_DATE = "Release Date";
+
+    private static final String SYNOPSIS = "Overview";
+
+    private static final String RATING = "Rating";
 
 
     private String[] Android_version = {
@@ -82,8 +106,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Items = getResources().getStringArray(R.array.drawer_array);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout1);
+        listView = (ListView) findViewById(R.id.left_drawer);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Items);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, "fffff", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+        Log.i(LOG_TAG, "SSSS");
+        Log.i(LOG_TAG, "FGHJGG");
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
@@ -152,6 +189,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override public void OnItemClick(Movies movies) {
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        intent.putExtra(MOVIE_TITLE, movies.getName());
+        intent.putExtra(RELEASE_DATE, movies.getReleasedate());
+        intent.putExtra(RATING, movies.getRating());
+        intent.putExtra(SYNOPSIS, movies.getOverview());
+        startActivity(intent);
+
+    }
+
     class GetMoviesTask extends AsyncTask<String, Void, ArrayList<Movies>>{
 
         private ArrayList<Movies> movies;
@@ -177,6 +224,10 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject object = array.getJSONObject(i);
                     String name = object.getString("title");
                     String posterurl = object.getString("backdrop_path");
+                    String title = object.getString("title");
+                    String date = object.getString("release_date");
+                    String rating = object.getString("vote_average");
+                    String summary = object.getString("overview");
                     Movies m = new Movies();
                     m.setUrl(BASE_URL + posterurl);
                     m.SetName(name);
@@ -195,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
             if(movies != null){
                 Log.i(LOG_TAG, "HH");
                 progressDialog.dismiss();
-                MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext());
+                MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext(), OnItemClickListener );
                 recyclerView.setAdapter(moviesAdapter);
             }
             else{
