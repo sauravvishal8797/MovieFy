@@ -14,6 +14,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.example.com.popularmovies.Activity.DetailsView;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
@@ -31,6 +32,9 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,7 +42,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements OnItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
@@ -61,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     private int i;
 
     private static final String URL = "https://api.themoviedb.org/3/movie/popular?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
+
+    private static final String TOP_RATED = "https://api.themoviedb" +
+            ".org/3/movie/top_rated?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
+
 
     private static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
 
@@ -108,14 +116,6 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         setContentView(R.layout.activity_main);
         Items = getResources().getStringArray(R.array.drawer_array);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout1);
-        listView = (ListView) findViewById(R.id.left_drawer);
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Items);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this, "fffff", Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
@@ -129,10 +129,29 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
 
 
-        
 
 
 
+
+    }
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+
+            case R.id.top_rated:
+                new GetMoviesTask().execute(TOP_RATED);
+                return true;
+            case R.id.popular:
+                new GetMoviesTask().execute(URL);
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     private ArrayList<Movies> getData(){
@@ -189,15 +208,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     }
 
-    @Override public void OnItemClick(Movies movies) {
-        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-        intent.putExtra(MOVIE_TITLE, movies.getName());
-        intent.putExtra(RELEASE_DATE, movies.getReleasedate());
-        intent.putExtra(RATING, movies.getRating());
-        intent.putExtra(SYNOPSIS, movies.getOverview());
-        startActivity(intent);
 
-    }
 
     class GetMoviesTask extends AsyncTask<String, Void, ArrayList<Movies>>{
 
@@ -223,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 for(i = 0; i < array.length(); i++){
                     JSONObject object = array.getJSONObject(i);
                     String name = object.getString("title");
-                    String posterurl = object.getString("backdrop_path");
+                    String posterurl = object.getString("poster_path");
                     String title = object.getString("title");
                     String date = object.getString("release_date");
                     String rating = object.getString("vote_average");
@@ -246,7 +257,19 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
             if(movies != null){
                 Log.i(LOG_TAG, "HH");
                 progressDialog.dismiss();
-                MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext(), OnItemClickListener );
+                MoviesAdapter moviesAdapter = new MoviesAdapter(movies, getApplicationContext(),
+                        new OnItemClickListener() {
+                            @Override public void OnItemClick(Movies movies) {
+
+                                Intent intent = new Intent(MainActivity.this, DetailsView.class);
+                                intent.putExtra(MOVIE_TITLE, movies.getName());
+                                intent.putExtra(RELEASE_DATE, movies.getReleasedate());
+                                intent.putExtra(RATING, movies.getRating());
+                                intent.putExtra(SYNOPSIS, movies.getOverview());
+                                startActivity(intent);
+
+                            }
+                        });
                 recyclerView.setAdapter(moviesAdapter);
             }
             else{

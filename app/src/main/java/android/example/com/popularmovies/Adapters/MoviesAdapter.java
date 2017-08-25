@@ -42,7 +42,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
 
     }
 
-    @Override public void onBindViewHolder(Viewholder holder, int position, OnItemClickListener Listener) {
+    @Override public void onBindViewHolder(Viewholder holder, int position) {
 
         Movies m = moviesArrayList.get(position);
         holder.name.setText(m.getName());
@@ -51,21 +51,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
                 .resize(120,
                         60).into(holder
                 .imageView);
-        holder.bind(m, Listener, holder.itemView);
-
-
+        holder.bind(m, mItemClickListener);
 
     }
 
-    public void bind(final Movies m, final OnItemClickListener listener, View view){
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                listener.OnItemClick(m);
-            }
-        });
-
-    }
 
     @Override public int getItemCount() {
         return moviesArrayList.size();
@@ -81,6 +70,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.title);
             imageView  = (ImageView) itemView.findViewById(R.id.thumbnail);
+        }
+
+        public void bind(final Movies m, final OnItemClickListener listener){
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View view) {
+                    listener.OnItemClick(m);
+                }
+            });
+
         }
     }
 }
