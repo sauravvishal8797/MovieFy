@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
 
-    private static final String BASE_URL = "http://image.tmdb.org/t/p/w185/";
+    private static final String BASE_URL = "http://image.tmdb.org/t/p/w500/";
 
     private static final String MOVIE_TITLE = "Title";
 

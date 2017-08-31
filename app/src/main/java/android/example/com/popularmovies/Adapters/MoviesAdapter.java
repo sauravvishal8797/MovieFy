@@ -48,8 +48,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
         holder.name.setText(m.getName());
         Picasso.with(holder.itemView.getContext()).load(moviesArrayList.get(position).getUrl()).placeholder(R
                 .drawable.birthdaycard)
-                .resize(120,
-                        60).into(holder
+                .into(holder
                 .imageView);
         holder.bind(m, mItemClickListener);
 
