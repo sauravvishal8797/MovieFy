@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String RATING = "Rating";
 
+    private static final String ORIGINAL_TITLE = "OriginalTitle";
+
+    private static final String ADULT = "Adult";
+
 
     private String[] Android_version = {
             "Donut",
@@ -272,6 +276,8 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra(RELEASE_DATE, movies.getReleasedate());
                                 intent.putExtra(RATING, movies.getRating());
                                 intent.putExtra(SYNOPSIS, movies.getOverview());
+                                intent.putExtra(ORIGINAL_TITLE, movies.getOriginalTitle());
+                                intent.putExtra(ADULT, movies.getAdultvalue());
                                 startActivity(intent);
 
                             }
