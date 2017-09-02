@@ -2,7 +2,6 @@ package android.example.com.popularmovies.JavaClasses;
 
 import android.content.Context;
 import android.content.Intent;
-import android.example.com.popularmovies.Fragments.NowPlayingMoviesFragment;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;

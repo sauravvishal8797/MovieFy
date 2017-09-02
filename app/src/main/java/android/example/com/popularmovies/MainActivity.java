@@ -6,12 +6,14 @@ import android.example.com.popularmovies.JavaClasses.Constants;
 import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
 import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
 import static android.example.com.popularmovies.JavaClasses.Constants.MOVIE_TITLE;
+import static android.example.com.popularmovies.JavaClasses.Constants.NOW_PLAYING;
 import static android.example.com.popularmovies.JavaClasses.Constants.ORIGINAL_TITLE;
 import static android.example.com.popularmovies.JavaClasses.Constants.POPULAR;
 import static android.example.com.popularmovies.JavaClasses.Constants.RATING;
 import static android.example.com.popularmovies.JavaClasses.Constants.RELEASE_DATE;
 import static android.example.com.popularmovies.JavaClasses.Constants.SYNOPSIS;
 import static android.example.com.popularmovies.JavaClasses.Constants.TOP_RATED;
+import static android.example.com.popularmovies.JavaClasses.Constants.UPCOMING;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 import java.net.URL;
@@ -138,9 +140,24 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.top_rated:
                 new GetMoviesTask().execute(TOP_RATED);
+                this.setTitle("Top Rated Movies");
                 return true;
+
+            case R.id.upcoming:
+                new GetMoviesTask().execute(UPCOMING);
+                this.setTitle("Upcoming Movies");
+                return true;
+
+            case R.id.now_playing:
+                new GetMoviesTask().execute(NOW_PLAYING);
+                this.setTitle("Now Playing In Theatres");
+                return true;
+
             case R.id.popular:
                 new GetMoviesTask().execute(POPULAR);
+                this.setTitle("Most Popular Movies");
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 

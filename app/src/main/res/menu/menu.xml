@@ -11,5 +11,15 @@
 
   </item>
 
+  <item android:id="@+id/upcoming"
+        android:title="Upcoming Movies">
+
+  </item>
+
+  <item android:id="@+id/now_playing"
+        android:title="Now Playing">
+
+  </item>
+
 
 </menu>
