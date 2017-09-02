@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.example.com.popularmovies.Activity.DetailsView;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
+import android.example.com.popularmovies.Adapters.ViewPagerFragmentAdapter;
 import android.example.com.popularmovies.JavaClasses.Constants;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
@@ -37,7 +38,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -60,6 +63,7 @@ public class MainActivityFragment extends Fragment {
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
+   
     private int i;
     private String[] Android_version = {
             "Donut",
@@ -99,6 +103,11 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_main_activity, container, false);
+        ViewPager viewPager = (ViewPager) rootview.findViewById(R.id.pager);
+        ViewPagerFragmentAdapter adapter = new ViewPagerFragmentAdapter(getFragmentManager(), 4);
+        viewPager.setAdapter(adapter);
+        TabLayout layout = (TabLayout) rootview.findViewById(R.id.tab_layout);
+        layout.setupWithViewPager(viewPager);
 
         coordinatorLayout = (CoordinatorLayout) rootview.findViewById(R.id.coordinator);
         Log.i(LOG_TAG, "SSSS");
