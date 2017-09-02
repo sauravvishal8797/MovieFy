@@ -1,6 +1,17 @@
 package android.example.com.popularmovies;
 
 import static android.R.attr.ems;
+import android.example.com.popularmovies.JavaClasses.Constants;
+
+import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
+import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
+import static android.example.com.popularmovies.JavaClasses.Constants.MOVIE_TITLE;
+import static android.example.com.popularmovies.JavaClasses.Constants.ORIGINAL_TITLE;
+import static android.example.com.popularmovies.JavaClasses.Constants.POPULAR;
+import static android.example.com.popularmovies.JavaClasses.Constants.RATING;
+import static android.example.com.popularmovies.JavaClasses.Constants.RELEASE_DATE;
+import static android.example.com.popularmovies.JavaClasses.Constants.SYNOPSIS;
+import static android.example.com.popularmovies.JavaClasses.Constants.TOP_RATED;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 import java.net.URL;
@@ -63,28 +74,6 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private int i;
-
-    private static final String URL = "https://api.themoviedb.org/3/movie/popular?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
-
-    private static final String TOP_RATED = "https://api.themoviedb" +
-            ".org/3/movie/top_rated?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
-
-
-    private static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
-
-    private static final String BASE_URL = "http://image.tmdb.org/t/p/w500/";
-
-    private static final String MOVIE_TITLE = "Title";
-
-    private static final String RELEASE_DATE = "Release Date";
-
-    private static final String SYNOPSIS = "Overview";
-
-    private static final String RATING = "Rating";
-
-    private static final String ORIGINAL_TITLE = "OriginalTitle";
-
-    private static final String ADULT = "Adult";
 
 
     private String[] Android_version = {
@@ -151,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 new GetMoviesTask().execute(TOP_RATED);
                 return true;
             case R.id.popular:
-                new GetMoviesTask().execute(URL);
+                new GetMoviesTask().execute(POPULAR);
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -182,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 activeNetwork.isConnectedOrConnecting();
         if(isConnected){
 
-            new GetMoviesTask().execute(URL);
+            new GetMoviesTask().execute(POPULAR);
 
 
 
@@ -278,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra(SYNOPSIS, movies.getOverview());
                                 intent.putExtra(ORIGINAL_TITLE, movies.getOriginalTitle());
                                 intent.putExtra(ADULT, movies.getAdultvalue());
+                                intent.putExtra(RELEASE_DATE, movies.getReleasedate());
                                 startActivity(intent);
 
                             }

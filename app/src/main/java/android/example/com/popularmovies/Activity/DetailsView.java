@@ -60,7 +60,7 @@ public class DetailsView extends AppCompatActivity {
         summary = intent.getStringExtra("Overview");
         url = intent.getStringExtra("Url");
         rating = intent.getStringExtra("Rating");
-        releasedate = intent.getStringExtra("Date");
+        releasedate = intent.getStringExtra("Release Date");
         Adit = intent.getStringExtra("Adult");
         OriginalTitlevaluereceiver = intent.getStringExtra("OriginalTitle");
         LOaddata();
@@ -69,6 +69,7 @@ public class DetailsView extends AppCompatActivity {
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+
         return true;
     }
 
