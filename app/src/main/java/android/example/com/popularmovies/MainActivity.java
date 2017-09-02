@@ -231,17 +231,23 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject root = new JSONObject(Jsonresponse);
                 JSONArray array = root.getJSONArray("results");
-                for(i = 0; i < array.length(); i++){
+                for (i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
                     String name = object.getString("title");
                     String posterurl = object.getString("poster_path");
-                    String title = object.getString("title");
                     String date = object.getString("release_date");
                     String rating = object.getString("vote_average");
                     String summary = object.getString("overview");
+                    String adultv = object.getString("adult");
+                    String originaltitle = object.getString("original_title");
                     Movies m = new Movies();
                     m.setUrl(BASE_URL + posterurl);
                     m.SetName(name);
+                    m.setOverview(summary);
+                    m.setReleasedate(date);
+                    m.setRating(rating);
+                    m.setAdultvalue(adultv);
+                    m.setOriginalTitle(originaltitle);
                     movies.add(m);
 
                 }

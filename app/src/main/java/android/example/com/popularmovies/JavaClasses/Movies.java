@@ -12,13 +12,16 @@ public class Movies {
     private String releasedate;
     private String rating;
     private String Overview;
+    private String OriginalTitle;
+    private String Adultvalue;
 
 
     public Movies(){
 
     }
 
-    public Movies(String name, String url, String title, String releasedate, String rating, String Overview){
+    public Movies(String name, String url, String title, String releasedate, String rating, String Overview, String
+            OriginalTitle, String Adultvalue){
 
         this.name = name;
         this.url = url;
@@ -26,6 +29,27 @@ public class Movies {
         this.releasedate = releasedate;
         this.rating = rating;
         this.Overview = Overview;
+        this.OriginalTitle = OriginalTitle;
+        this.Adultvalue = Adultvalue;
+    }
+
+    public void setAdultvalue(String Adultvalue){
+
+        this.Adultvalue = Adultvalue;
+    }
+
+    public String getAdultvalue(){
+
+        return Adultvalue;
+    }
+
+    public void setOriginalTitle(String OriginalTitle){
+        this.OriginalTitle = OriginalTitle;
+    }
+
+    public String getOriginalTitle(){
+
+        return OriginalTitle;
     }
 
     public void SetName(String name){
