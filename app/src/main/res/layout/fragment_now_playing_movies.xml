@@ -1,13 +1,18 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="android.example.com.popularmovies.Fragments.NowPlayingMoviesFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/coordinator22"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
 
   <!-- TODO: Update blank fragment layout -->
-  <TextView
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/recycler_view35"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:text="@string/hello_blank_fragment"/>
+      android:layout_height="wrap_content"
+      android:clipToPadding="false"
+      android:scrollbars="vertical" />
 
-</FrameLayout>
+
+</LinearLayout>

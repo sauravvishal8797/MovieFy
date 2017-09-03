@@ -4,11 +4,15 @@
               android:id="@+id/linear"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
-  
- <include layout="@layout/fragment_main_activity">
+              android:orientation="horizontal">
 
- </include>
+ <fragment android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:id="@+id/lllll"
+           android:name="android.example.com.popularmovies.Fragments.MainActivityFragment"></fragment>
+  
+
+
 
 
 

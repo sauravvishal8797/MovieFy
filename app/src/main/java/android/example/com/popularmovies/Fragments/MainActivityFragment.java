@@ -63,7 +63,7 @@ public class MainActivityFragment extends Fragment {
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
-   
+
     private int i;
     private String[] Android_version = {
             "Donut",
@@ -109,14 +109,6 @@ public class MainActivityFragment extends Fragment {
         TabLayout layout = (TabLayout) rootview.findViewById(R.id.tab_layout);
         layout.setupWithViewPager(viewPager);
 
-        coordinatorLayout = (CoordinatorLayout) rootview.findViewById(R.id.coordinator);
-        Log.i(LOG_TAG, "SSSS");
-        Log.i(LOG_TAG, "FGHJGG");
-        recyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        Checknetworkinfo();
 
 
         return rootview;

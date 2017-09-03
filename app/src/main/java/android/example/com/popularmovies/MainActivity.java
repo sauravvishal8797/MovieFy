@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
       FragmentManager frag = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction F = frag.beginTransaction();
         MainActivityFragment m = new MainActivityFragment();
-        F.add(R.id.coordinator, m);
+        F.add(R.id.lllll, m);
         F.commit();
 
     }
