@@ -1,9 +1,13 @@
 package android.example.com.popularmovies.Fragments;
 
 
+import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
 import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
 import static android.example.com.popularmovies.JavaClasses.Constants.IMAGE_URL;
 import static android.example.com.popularmovies.JavaClasses.Constants.MOVIE_TITLE;
+import static android.example.com.popularmovies.JavaClasses.Constants.ORIGINAL_TITLE;
+import static android.example.com.popularmovies.JavaClasses.Constants.RATING;
+import static android.example.com.popularmovies.JavaClasses.Constants.RELEASE_DATE;
 import static android.example.com.popularmovies.JavaClasses.Constants.SYNOPSIS;
 
 import java.net.URL;
@@ -70,6 +74,7 @@ public class PopularMoviesFragment extends Fragment {
         linearLayout = (LinearLayout) rootview.findViewById(R.id.coordinator25);
 
         recyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view33);
+        recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         Checknetworkinfo();
@@ -152,35 +157,35 @@ public class PopularMoviesFragment extends Fragment {
             if (movies != null) {
                 Log.i(LOG_TAG, movies.get(2).getName());
                 progressDialog.dismiss();
-                setAdapter(movies
-                );
+                moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
+                    @Override public void OnItemClick(int position) {
+                        Intent intent = new Intent(getContext(), DetailsView.class);
 
-            } else {
+                        Movies movies1 = movies.get(position);
+                        Log.i(LOG_TAG, movies1.getName());
+                        Log.i(LOG_TAG, movies1.getUrl());
+                        intent.putExtra(MOVIE_TITLE, movies1.getName());
+                        intent.putExtra(SYNOPSIS, movies1.getOverview());
+                        intent.putExtra(IMAGE_URL, movies1.getUrl());
+                        intent.putExtra(ADULT, movies1.getAdultvalue());
+                        intent.putExtra(RATING, movies1.getRating());
+                        intent.putExtra(RELEASE_DATE, movies1.getReleasedate());
+                        intent.putExtra(ORIGINAL_TITLE, movies1.getOriginalTitle());
+                        startActivity(intent);
+                    }
+                });
+
+                recyclerView.setAdapter(moviesAdapter);
+            }
+
+
+            else {
                 Log.e(LOG_TAG, "Null arraylist returned");
             }
         }
 
     }
-    private void setAdapter(final ArrayList<Movies> movies){
 
-        moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
-            @Override public void OnItemClick(int position) {
-                Intent intent = new Intent(getContext(), DetailsView.class);
 
-                Movies movies1 = movies.get(position);
-                Log.i(LOG_TAG, movies1.getName());
-                Log.i(LOG_TAG, movies1.getUrl());
-                intent.putExtra(MOVIE_TITLE, movies1.getName());
-                intent.putExtra(SYNOPSIS, movies1.getOverview());
-                intent.putExtra(IMAGE_URL, movies1.getUrl());
-                intent.putExtra("Adult", movies1.getAdultvalue());
-                intent.putExtra("Rating", movies1.getRating());
-                intent.putExtra("Date", movies1.getReleasedate());
-                intent.putExtra("OriginalTitle", movies1.getOriginalTitle());
-                startActivity(intent);
-            }
-        });
 
-        recyclerView.setAdapter(moviesAdapter);
-    }
 }

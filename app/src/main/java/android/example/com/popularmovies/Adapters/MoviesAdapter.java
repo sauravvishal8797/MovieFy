@@ -6,13 +6,11 @@ import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.example.com.popularmovies.JavaClasses.Movies;
-import android.example.com.popularmovies.JavaClasses.OnItemClickListener;
 import android.example.com.popularmovies.R;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,16 +21,18 @@ import android.widget.TextView;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder> {
 
     private ArrayList<Movies> moviesArrayList;
-    private Context mContext;
     private OnItemClickListener mItemClickListener;
 
-    public MoviesAdapter(ArrayList<Movies> movies, Context context, OnItemClickListener onItemClickListener){
+    public MoviesAdapter(ArrayList<Movies> movies, OnItemClickListener onItemClickListener){
 
         moviesArrayList = movies;
-        mContext = context;
         mItemClickListener = onItemClickListener;
 
 
+    }
+    public interface OnItemClickListener {
+
+        void OnItemClick(int position);
     }
 
 
@@ -50,7 +50,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
                 .drawable.birthdaycard)
                 .into(holder
                 .imageView);
-        holder.bind(m, mItemClickListener);
+
 
     }
 
@@ -59,7 +59,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
         return moviesArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder{
+    public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView name;
         private ImageView imageView;
@@ -69,16 +69,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.title);
             imageView  = (ImageView) itemView.findViewById(R.id.thumbnail);
+            itemView.setOnClickListener(this);
         }
 
-        public void bind(final Movies m, final OnItemClickListener listener){
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View view) {
-                    listener.OnItemClick(m);
-                }
-            });
-
+        @Override public void onClick(View view) {
+            int pos = getAdapterPosition();
+            mItemClickListener.OnItemClick(pos);
         }
     }
 }
