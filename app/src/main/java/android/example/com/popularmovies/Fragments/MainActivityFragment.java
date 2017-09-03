@@ -31,6 +31,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -87,7 +88,6 @@ public class MainActivityFragment extends Fragment {
             "http://api.learn2crack.com/android/images/lollipop.png",
             "http://api.learn2crack.com/android/images/marshmallow.png"
     };
-
 
     public MainActivityFragment() {
         // Required empty public constructor

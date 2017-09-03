@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class UpcomingMoviesFragment extends Fragment {
     private LinearLayout linearLayout;
     private RecyclerView recyclerView;
     private MoviesAdapter moviesAdapter;
+    private SwipeRefreshLayout layout;
 
 
     public UpcomingMoviesFragment() {
@@ -72,6 +74,12 @@ public class UpcomingMoviesFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_upcoming_movies, container, false);
         linearLayout = (LinearLayout) rootview.findViewById(R.id.coordinator23);
+        layout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefreshLayout);
+        layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override public void onRefresh() {
+                Checknetworkinfo();
+            }
+        });
 
         recyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view36);
         recyclerView.setHasFixedSize(false);
@@ -157,6 +165,7 @@ public class UpcomingMoviesFragment extends Fragment {
             if (movies != null) {
                 Log.i(LOG_TAG, movies.get(2).getName());
                 progressDialog.dismiss();
+                layout.setRefreshing(false);
                 moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
                     @Override public void OnItemClick(int position) {
                         Intent intent = new Intent(getContext(), DetailsView.class);
