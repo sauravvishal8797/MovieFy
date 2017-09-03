@@ -5,6 +5,10 @@
   <string name="top_rated">Top Rated movies</string>
   <string name="movie_title"></string>
 
+  <string name="drawer_open">Open Drawer</string>
+
+  <string name="drawer_closed">Closed Drawer</string>
+
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
