@@ -42,6 +42,7 @@ import android.view.ViewGroup;
 
 import android.example.com.popularmovies.R;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,15 +102,7 @@ public class TopRatedMoviesFragment extends Fragment {
 
             new GetMoviesTask().execute(Constants.TOP_RATED);
         } else {
-            Snackbar.make(linearLayout, "Internet connection is off", Snackbar.LENGTH_LONG)
-                    .setAction("Settings", new View.OnClickListener() {
-                        @Override public void onClick(View view) {
-
-                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                            startActivity(intent);
-
-                        }
-                    }).show();
+            Toast.makeText(getContext(), "You need to switch on the internet", Toast.LENGTH_SHORT).show();
         }
     }
 

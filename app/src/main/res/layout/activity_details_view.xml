@@ -22,7 +22,8 @@
       <ImageView
           android:id="@+id/main.imageview.placeholder"
           android:layout_width="match_parent"
-          android:layout_height="400dp"
+          android:contentDescription="@string/desc"
+          android:layout_height="400sp"
           android:scaleType="centerCrop"
           android:src="@drawable/birthdaycard"
           android:tint="#11000000"
@@ -48,9 +49,8 @@
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Santa"
                     android:id="@+id/name"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     android:textColor="@color/cardview_light_background"
                     android:layout_gravity="center"/>
 
@@ -88,15 +88,15 @@
                       android:orientation="horizontal">
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Release :"
+                    android:text="@string/release"
                     android:id="@+id/releasetext"
                     android:textColor="#000000"
                     android:layout_marginRight="16dp"
-                    android:textSize="17dp"/>
+                    android:textSize="17sp"/>
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/date"
-                    android:text="28-Aug-2017"/>
+                    android:text="@string/date"/>
 
         </LinearLayout>
 
@@ -106,15 +106,15 @@
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rating :"
+                    android:text="@string/rating"
                     android:textColor="#000000"
                     android:id="@+id/ratingtext"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     android:layout_marginRight="16dp"/>
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/value"
-                    android:text="6.9"/>
+                    android:text="@string/rate_value"/>
 
         </LinearLayout>
 
@@ -124,16 +124,16 @@
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adult :"
+                    android:text="@string/adult"
                     android:textColor="#000000"
                     android:id="@+id/adulttext"
                     android:textSize="17dp"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_marginRight="16sp"/>
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/adultvalue"
-                    android:text="True"/>
+                    android:text="@string/adult_value"/>
 
         </LinearLayout>
 
@@ -143,16 +143,16 @@
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OriginalTitle :"
+                    android:text="@string/Original_title"
                     android:textColor="#000000"
                     android:id="@+id/orignaltit"
-                    android:textSize="17dp"
-                    android:layout_marginRight="16dp"/>
+                    android:textSize="17sp"
+                    android:layout_marginRight="16sp"/>
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/originaltitvalue"
-                    android:text="True"/>
+                    android:text="@string/original_title_value"/>
 
         </LinearLayout>
 
@@ -161,8 +161,8 @@
                   android:layout_height="wrap_content"
                   android:id="@+id/overview"
                   android:textColor="@color/cardview_dark_background"
-                  android:text="sssssssssssssssssssssssssssssssssssssssssssssssssss"
-                  android:textSize="15dp"/>
+                  android:text="@string/overview"
+                  android:textSize="15sp"/>
 
       </LinearLayout>
 
@@ -194,7 +194,7 @@
           android:layout_height="match_parent"
           android:layout_marginLeft="8dp"
           android:gravity="center_vertical"
-          android:text="Sandrabullock"
+          android:text="@string/sandra"
           android:textColor="@android:color/white"
           android:textSize="20sp"
       />

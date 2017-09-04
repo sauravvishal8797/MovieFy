@@ -42,6 +42,7 @@ import android.view.ViewGroup;
 
 import android.example.com.popularmovies.R;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,7 +90,7 @@ public class NowPlayingMoviesFragment extends Fragment {
         return rootview;
     }
 
-    private void Checknetworkinfo() {
+    private boolean isNetworkEnabled(){
 
         ConnectivityManager cm =
                 (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -97,19 +98,16 @@ public class NowPlayingMoviesFragment extends Fragment {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-        if (isConnected) {
+        return isConnected;
+    }
+
+    private void Checknetworkinfo() {
+
+        if (isNetworkEnabled()) {
 
             new GetMoviesTask().execute(Constants.NOW_PLAYING);
         } else {
-            Snackbar.make(linearLayout, "Internet connection is off", Snackbar.LENGTH_LONG)
-                    .setAction("Settings", new View.OnClickListener() {
-                        @Override public void onClick(View view) {
-
-                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                            startActivity(intent);
-
-                        }
-                    }).show();
+            Toast.makeText(getContext(), "You need to switch on the internet", Toast.LENGTH_SHORT).show();
         }
     }
 

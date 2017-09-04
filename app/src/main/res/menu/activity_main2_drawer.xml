@@ -5,27 +5,27 @@
     <item
         android:id="@+id/movies"
         android:icon="@drawable/movie_icon"
-        android:title="Movies"/>
+        android:title="@string/movies"/>
     <item
         android:id="@+id/tv_series"
         android:icon="@drawable/tv_series"
-        android:title="Tv Series"/>
+        android:title="@string/tv"/>
     <item
         android:id="@+id/music"
         android:icon="@drawable/music"
-        android:title="Music"/>
+        android:title="@string/music"/>
     <item
         android:id="@+id/books"
         android:icon="@drawable/books"
-        android:title="Books"/>
+        android:title="@string/books"/>
   </group>
 
-  <item android:title="Additionals">
+  <item android:title="@string/additionals">
     <menu>
       <item
           android:id="@+id/settings"
           android:icon="@drawable/settings"
-          android:title="Settings"/>
+          android:title="@string/settings"/>
 
     </menu>
   </item>
