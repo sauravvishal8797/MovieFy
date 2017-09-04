@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/movies"
+        android:icon="@drawable/movie_icon"
+        android:title="Movies"/>
+    <item
+        android:id="@+id/tv_series"
+        android:icon="@drawable/tv_series"
+        android:title="Tv Series"/>
+    <item
+        android:id="@+id/music"
+        android:icon="@drawable/music"
+        android:title="Music"/>
+    <item
+        android:id="@+id/books"
+        android:icon="@drawable/books"
+        android:title="Books"/>
+  </group>
+
+  <item android:title="Additionals">
+    <menu>
+      <item
+          android:id="@+id/settings"
+          android:icon="@drawable/settings"
+          android:title="Settings"/>
+
+    </menu>
+  </item>
+
+</menu>
