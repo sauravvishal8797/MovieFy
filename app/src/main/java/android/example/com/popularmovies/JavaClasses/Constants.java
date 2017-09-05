@@ -37,10 +37,4 @@ public class Constants {
     public static final String UPCOMING = "https://api.themoviedb" +
             ".org/3/movie/upcoming?api_key=" + API_KEY + "&language=en-US";
 
-
-
-
-
-
-
 }
