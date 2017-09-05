@@ -29,8 +29,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -51,11 +49,9 @@ public class PopularMoviesFragment extends Fragment {
 
 
     private ArrayList<Movies> movies;
-    private static final String SAVE_ARRAYLIST = "PopularMoviesList";
     private static final String LOG_TAG = PopularMoviesFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
     private int i;
-    private LinearLayout linearLayout;
     private RecyclerView recyclerView;
     private MoviesAdapter moviesAdapter;
     private SwipeRefreshLayout layout;
@@ -65,16 +61,12 @@ public class PopularMoviesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_popular_movies, container, false);
-        linearLayout = (LinearLayout) rootview.findViewById(R.id.coordinator25);
         layout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefreshLayout);
         layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
@@ -101,7 +93,7 @@ public class PopularMoviesFragment extends Fragment {
                 activeNetwork.isConnectedOrConnecting();
         if (isConnected) {
 
-            new GetMoviesTask().execute(Constants.TOP_RATED);
+            new GetMoviesTask().execute(Constants.POPULAR);
         } else {
             Toast.makeText(getContext(), "You need to switch on the internet", Toast.LENGTH_SHORT).show();
         }

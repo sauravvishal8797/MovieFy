@@ -68,7 +68,7 @@ public class NetworkUtils {
 
     }
 
-    public static String ReadFromInputStream(InputStream inputStream){
+    private static String ReadFromInputStream(InputStream inputStream){
 
         StringBuilder builder = new StringBuilder();
         if(inputStream != null){

@@ -1,12 +1,5 @@
 package android.example.com.popularmovies.JavaClasses;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.provider.Settings;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 
 /**
  * Created by saurav on 29/8/17.
@@ -33,16 +26,16 @@ public class Constants {
     public static final String ADULT = "Adult";
 
     public static final String TOP_RATED = "https://api.themoviedb" +
-            ".org/3/movie/top_rated?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
+            ".org/3/movie/top_rated?api_key=" + API_KEY + "&language=en-US";
 
     public static final String POPULAR =
-            "https://api.themoviedb.org/3/movie/popular?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
+            "https://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY + "&language=en-US";
 
     public static final String NOW_PLAYING = "https://api.themoviedb" +
-            ".org/3/movie/now_playing?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
+            ".org/3/movie/now_playing?api_key=" + API_KEY + "&language=en-US";
 
     public static final String UPCOMING = "https://api.themoviedb" +
-            ".org/3/movie/upcoming?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US";
+            ".org/3/movie/upcoming?api_key=" + API_KEY + "&language=en-US";
 
 
 

@@ -1,16 +1,11 @@
 package android.example.com.popularmovies.Activity;
 
-import static android.R.attr.name;
-
 import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
 import android.example.com.popularmovies.R;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +14,8 @@ public class DetailsView extends AppCompatActivity {
     private TextView Synopsis;
     private TextView ratings;
     private TextView ratngvalue;
-    private TextView release;
     private TextView rdate;
-    private TextView adult;
     private TextView adultvalue;
-    private TextView TextTile;
-    private TextView OriginTitle;
     private TextView Originaltitvalue;
 
     private ImageView imageView;
@@ -34,7 +25,10 @@ public class DetailsView extends AppCompatActivity {
     private String rating;
     private String releasedate;
     private String Adit;
-    private String OriginalTitlereceiver;
+    private TextView TextTile;
+    private TextView adult;
+    private TextView release;
+    private TextView OriginTitle;
     private String OriginalTitlevaluereceiver;
 
     @Override

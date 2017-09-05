@@ -1,13 +1,9 @@
 package android.example.com.popularmovies.Activity;
 
 import android.app.Fragment;
-import android.example.com.popularmovies.Fragments.MainActivityFragment;
 import android.example.com.popularmovies.R;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,12 +27,10 @@ public class Main2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        MainActivityFragment m = new MainActivityFragment();
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.lllll, new Fragment(), "LIST")
@@ -79,7 +73,7 @@ public class Main2Activity extends AppCompatActivity
 
         @SuppressWarnings("StatementWithEmptyBody")
         @Override
-        public boolean onNavigationItemSelected (MenuItem item){
+        public boolean onNavigationItemSelected (@NonNull MenuItem item){
             // Handle navigation view item clicks here.
             int id = item.getItemId();
 

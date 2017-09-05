@@ -29,8 +29,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -51,11 +49,9 @@ public class UpcomingMoviesFragment extends Fragment {
 
 
     private ArrayList<Movies> movies;
-    private static final String SAVE_ARRAYLIST = "TopRatedMoviesList";
     private static final String LOG_TAG = UpcomingMoviesFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
     private int i;
-    private LinearLayout linearLayout;
     private RecyclerView recyclerView;
     private MoviesAdapter moviesAdapter;
     private SwipeRefreshLayout layout;
@@ -65,16 +61,12 @@ public class UpcomingMoviesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_upcoming_movies, container, false);
-        linearLayout = (LinearLayout) rootview.findViewById(R.id.coordinator23);
         layout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefreshLayout);
         layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
@@ -113,7 +105,7 @@ public class UpcomingMoviesFragment extends Fragment {
         @Override protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("LOading");
+            progressDialog.setTitle("Loading");
             progressDialog.show();
         }
 

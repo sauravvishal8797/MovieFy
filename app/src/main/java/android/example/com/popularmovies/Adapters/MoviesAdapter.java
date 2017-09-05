@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.squareup.picasso.Picasso;
 
-import android.content.Context;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.R;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +19,8 @@ import android.widget.TextView;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder> {
 
-    private ArrayList<Movies> moviesArrayList;
-    private OnItemClickListener mItemClickListener;
+    private final ArrayList<Movies> moviesArrayList;
+    private final OnItemClickListener mItemClickListener;
 
     public MoviesAdapter(ArrayList<Movies> movies, OnItemClickListener onItemClickListener){
 
