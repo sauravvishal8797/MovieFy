@@ -37,7 +37,6 @@ public class DetailsView extends AppCompatActivity {
         setContentView(R.layout.activity_details_view);
 
         Synopsis = (TextView) findViewById(R.id.overview);
-        TextTile = (TextView) findViewById(R.id.main_textview_title);
         ratings = (TextView) findViewById(R.id.name);
         imageView = (ImageView) findViewById(R.id.main_imageview_placeholder);
         ratngvalue = (TextView) findViewById(R.id.value);
