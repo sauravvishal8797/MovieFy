@@ -1,10 +1,13 @@
 package android.example.com.popularmovies.JavaClasses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by saurav on 21/8/17.
  */
 
-public class Movies {
+public class Movies implements Parcelable {
 
     private String name;
     private String url;
@@ -31,6 +34,18 @@ public class Movies {
         this.Overview = Overview;
         this.OriginalTitle = OriginalTitle;
         this.Adultvalue = Adultvalue;
+    }
+
+    private Movies(Parcel p){
+
+        this.name = p.readString();
+        this.url = p.readString();
+        this.title = p.readString();
+        this.releasedate = p.readString();
+        this.rating = p.readString();
+        this.Overview = p.readString();
+        this.OriginalTitle = p.readString();
+        this.Adultvalue = p.readString();
     }
 
     public void setAdultvalue(String Adultvalue){
@@ -111,4 +126,30 @@ public class Movies {
 
         return url;
     }
+
+    @Override public int describeContents() {
+        return 0;
+    }
+
+    @Override public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeString(name);
+        parcel.writeString(url);
+        parcel.writeString(releasedate);
+        parcel.writeString(rating);
+        parcel.writeString(Overview);
+        parcel.writeString(OriginalTitle);
+        parcel.writeString(title);
+
+    }
+
+    private static final Parcelable.Creator<Movies> CREATOR = new Parcelable.Creator<Movies>(){
+        @Override public Movies createFromParcel(Parcel parcel) {
+            return new Movies(parcel);
+        }
+
+        @Override public Movies[] newArray(int i) {
+            return new Movies[0];
+        }
+    };
 }
