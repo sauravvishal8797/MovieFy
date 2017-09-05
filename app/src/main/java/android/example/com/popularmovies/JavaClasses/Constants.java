@@ -7,7 +7,7 @@ package android.example.com.popularmovies.JavaClasses;
 
 public class Constants {
 
-    public static final String API_KEY = "e2a51d701ca40655dbb7d5156ff2f42e";
+    public static final String API_KEY = "[INSERT YOUR API KEY]";
 
     public static final String BASE_URL = "http://image.tmdb.org/t/p/w500/";
 
