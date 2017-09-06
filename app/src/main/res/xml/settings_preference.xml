@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <CheckBoxPreference android:defaultValue="true"
+                      android:key="show_adult"
+                      android:title="Include Explicit Content"
+                      android:summary="Include Adult items in the search"></CheckBoxPreference>
+
+  <ListPreference android:key = "image_quality"
+                  android:title="Image Quality"
+                  android:entries="@array/list_entries"
+                  android:entryValues="@array/list_entry_values"
+                  android:dialogTitle="Choose Image Quality"
+                  android:defaultValue="high"></ListPreference>
+
+
+
+</PreferenceScreen>

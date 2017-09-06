@@ -20,6 +20,8 @@
   <style name="AppTheme.2" parent="Theme.AppCompat.Light.DarkActionBar">
 
     <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
   </style>
 
 </resources>
