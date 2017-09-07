@@ -106,6 +106,7 @@ public class UpcomingMoviesFragment extends Fragment {
             super.onPreExecute();
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Loading");
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
         }
 

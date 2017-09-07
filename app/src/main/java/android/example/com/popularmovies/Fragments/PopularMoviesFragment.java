@@ -107,6 +107,7 @@ public class PopularMoviesFragment extends Fragment {
             super.onPreExecute();
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("LOading");
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
         }
 
