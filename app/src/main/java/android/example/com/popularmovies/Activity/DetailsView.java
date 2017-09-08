@@ -1,8 +1,8 @@
 package android.example.com.popularmovies.Activity;
 
 import static android.example.com.popularmovies.R.id.fab;
-import static android.example.com.popularmovies.R.id.fab1;
-import static android.example.com.popularmovies.R.id.fab2;
+import static android.example.com.popularmovies.R.id.fab_favourite;
+import static android.example.com.popularmovies.R.id.fab_watchlist;
 
 import com.squareup.picasso.Picasso;
 
@@ -63,8 +63,8 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         OriginTitle = (TextView) findViewById(R.id.orignaltit);
         Originaltitvalue = (TextView) findViewById(R.id.originaltitvalue);
         fb1 = (FloatingActionButton) findViewById(fab);
-        fb2 = (FloatingActionButton) findViewById(R.id.fab1);
-        fb3 = (FloatingActionButton) findViewById(R.id.fab2);
+        fb2 = (FloatingActionButton) findViewById(R.id.fab_favourite);
+        fb3 = (FloatingActionButton) findViewById(R.id.fab_watchlist);
         animator1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         animator2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         animator3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
@@ -111,11 +111,12 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
 
         switch (id){
 
-            case fab1:
-                Toast.makeText(getApplicationContext(), "csgvhss", Toast.LENGTH_SHORT).show();
+            case fab_favourite:
+               Intent intent = new Intent(this, FavouritesActivity.class);
+                startActivity(intent);
                 break;
 
-            case fab2:
+            case fab_watchlist:
                 Toast.makeText(getApplicationContext(), "ghfhgjg", Toast.LENGTH_SHORT).show();
                 break;
 

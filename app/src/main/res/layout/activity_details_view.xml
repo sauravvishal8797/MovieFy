@@ -67,7 +67,7 @@
 
 
   <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab2"
+      android:id="@+id/fab_watchlist"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="160dp"
@@ -79,7 +79,7 @@
       app:pressedTranslationZ="12dp"
       android:src="@drawable/tv_series" />
   <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab1"
+      android:id="@+id/fab_favourite"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="90dp"
