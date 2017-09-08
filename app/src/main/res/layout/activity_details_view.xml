@@ -99,7 +99,7 @@
       app:backgroundTint="@color/colorAccent"
       app:pressedTranslationZ="12dp"
       android:layout_margin="16dp"
-      android:src="@drawable/birthdaycard" />
+      android:src="@drawable/ic_add_black_24dp" />
 
   <android.support.v4.widget.NestedScrollView
       android:layout_width="match_parent"
