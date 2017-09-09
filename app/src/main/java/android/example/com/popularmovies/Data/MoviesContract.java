@@ -8,15 +8,21 @@ import android.provider.BaseColumns;
 
 public final class MoviesContract {
 
+    public static final String DATABASE_NAME = "FavouriteMovies";
+
+    public static final int DATABASE_VERSION = 1;
+
     private MoviesContract(){
 
     }
 
     public static final class MovieEntry implements BaseColumns {
 
-        public static final String TABLE_NAME = "Favourite Movies";
+        public static final String TABLE_NAME = "FavouriteMovies";
 
-        public static final String COLOUMN_NAME = "Movie Name";
+        public static final String COLOUMN_ID = "id";
+
+        public static final String COLOUMN_NAME = "MovieName";
 
         public static final String COLOUMN_SYNOPSIS = "Synopsis";
 
@@ -26,6 +32,6 @@ public final class MoviesContract {
 
         public static final String COLOUMN_ADULT = "Certification";
 
-        public static final String COLOUMN_POSTERS = "Movie Poster";
+        public static final String COLOUMN_POSTERS = "MoviePoster";
     }
 }
