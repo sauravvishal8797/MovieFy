@@ -1,5 +1,6 @@
 package android.example.com.popularmovies.Activity;
 
+import static android.R.attr.id;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_ADULT;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_NAME;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_POSTERS;
@@ -13,12 +14,15 @@ import static android.example.com.popularmovies.R.id.fab_watchlist;
 
 import com.squareup.picasso.Picasso;
 
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.example.com.popularmovies.Data.FavouriteMoviesHelper;
 import android.example.com.popularmovies.R;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.solver.widgets.Animator;
 import android.support.design.widget.FloatingActionButton;
@@ -48,6 +52,8 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     private String name1;
     private String summary;
     private String url;
+    private static final String id = "571b76d8c3a36864e00025a0";
+    private TextView textView1;
     private String rating;
     private String releasedate;
     private String Adit;
@@ -66,6 +72,20 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         favouriteMoviesHelper = new FavouriteMoviesHelper(getApplicationContext());
         Synopsis = (TextView) findViewById(R.id.overview);
         ratings = (TextView) findViewById(R.id.name);
+        textView1 = (TextView) findViewById(R.id.trailer);
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + id));
+                try{
+                    startActivity(appIntent);
+                }catch (ActivityNotFoundException e){
+                    startActivity(intent);
+
+                }
+
+            }
+        });
         imageView = (ImageView) findViewById(R.id.main_imageview_placeholder);
         ratngvalue = (TextView) findViewById(R.id.value);
         adult = (TextView) findViewById(R.id.adulttext);
@@ -134,6 +154,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
                 contentValues.put(COLOUMN_SYNOPSIS, summary);
                 contentValues.put(COLOUMN_POSTERS, url);
                 database.insert(TABLE_NAME, null, contentValues);
+
                 break;
 
             case fab_watchlist:
@@ -146,6 +167,21 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
                animatefab();
                 break;
 
+        }
+
+    }
+
+    public boolean checkExists(){
+        SQLiteDatabase database = favouriteMoviesHelper.getReadableDatabase();
+       Cursor c = database.query(TABLE_NAME, new String[]{COLOUMN_NAME, COLOUMN_POSTERS, COLOUMN_SYNOPSIS}, COLOUMN_NAME + "=?", new
+                       String[]{OriginalTitlevaluereceiver}, null,
+               null, null);
+        if(c != null){
+            return false;
+
+        }
+        else{
+            return true;
         }
 
     }

@@ -22,15 +22,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class FavouriteMoviesHelper extends SQLiteOpenHelper {
 
 
-    public static final String CREATE_TABLE = "CREATE TABLE " + DATABASE_NAME + "(" +
-            COLOUMN_ID + " INTEGER PRIMARY KEY, " +
+    public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
+            COLOUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLOUMN_NAME + " TEXT, " +
             COLOUMN_ADULT + " TEXT, " +
             COLOUMN_RATING + " DOUBLE" +
             ", " +
             COLOUMN_POSTERS + " TEXT, " +
             COLOUMN_RELEASE_DATE + " TEXT, " +
-            COLOUMN_SYNOPSIS + " TEXT)";
+            COLOUMN_SYNOPSIS + " TEXT" + ");";
 
     public FavouriteMoviesHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

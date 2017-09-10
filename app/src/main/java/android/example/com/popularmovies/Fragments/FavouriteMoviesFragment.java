@@ -15,6 +15,7 @@ import static android.example.com.popularmovies.JavaClasses.Constants.ORIGINAL_T
 import static android.example.com.popularmovies.JavaClasses.Constants.RATING;
 import static android.example.com.popularmovies.JavaClasses.Constants.RELEASE_DATE;
 import static android.example.com.popularmovies.JavaClasses.Constants.SYNOPSIS;
+import static android.os.Build.VERSION_CODES.M;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.example.com.popularmovies.Activity.DetailsView;
+import android.example.com.popularmovies.Adapters.DbAdapter;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.Data.FavouriteMoviesHelper;
 import android.example.com.popularmovies.JavaClasses.Movies;
@@ -51,6 +53,7 @@ public class FavouriteMoviesFragment extends Fragment {
     private static final String LOG_TAG = FavouriteMoviesFragment.class.getSimpleName();
 
     private FavouriteMoviesHelper favouriteMoviesHelper;
+    private String[] s = {COLOUMN_NAME, COLOUMN_POSTERS};
 
 
     public FavouriteMoviesFragment() {
@@ -70,31 +73,16 @@ public class FavouriteMoviesFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
        Cursor cursor = getdatafromdatabase();
-        loadArraylist(cursor);
-        MoviesAdapter moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
-            @Override public void OnItemClick(int position) {
-                Intent intent = new Intent(getContext(), DetailsView.class);
+        DbAdapter dbAdapter = new DbAdapter(cursor);
+        recyclerView.setAdapter(dbAdapter);
 
-                Movies movies1 = movies.get(position);
-                Log.i(LOG_TAG, movies1.getName());
-                Log.i(LOG_TAG, movies1.getUrl());
-                intent.putExtra(MOVIE_TITLE, movies1.getName());
-                intent.putExtra(SYNOPSIS, movies1.getOverview());
-                intent.putExtra(IMAGE_URL, movies1.getUrl());
-                intent.putExtra(ADULT, movies1.getAdultvalue());
-                intent.putExtra(RATING, movies1.getRating());
-                intent.putExtra(RELEASE_DATE, movies1.getReleasedate());
-                intent.putExtra(ORIGINAL_TITLE, movies1.getOriginalTitle());
-                startActivity(intent);
-            }
-        });
         return view;
     }
 
     private Cursor getdatafromdatabase(){
 
         SQLiteDatabase database = favouriteMoviesHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = database.query(TABLE_NAME, null, null, null, null, null, null );
         return cursor;
 
     }

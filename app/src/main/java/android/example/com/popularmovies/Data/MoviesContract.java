@@ -8,7 +8,7 @@ import android.provider.BaseColumns;
 
 public final class MoviesContract {
 
-    public static final String DATABASE_NAME = "FavouriteMovies";
+    public static final String DATABASE_NAME = "FavouriteMovies.db";
 
     public static final int DATABASE_VERSION = 1;
 
@@ -18,7 +18,7 @@ public final class MoviesContract {
 
     public static final class MovieEntry implements BaseColumns {
 
-        public static final String TABLE_NAME = "FavouriteMovies";
+        public static final String TABLE_NAME = "Movies";
 
         public static final String COLOUMN_ID = "id";
 
@@ -28,7 +28,7 @@ public final class MoviesContract {
 
         public static final String COLOUMN_RATING = "Ratings";
 
-        public static final String  COLOUMN_RELEASE_DATE = "Release Date";
+        public static final String  COLOUMN_RELEASE_DATE = "ReleaseDate";
 
         public static final String COLOUMN_ADULT = "Certification";
 
