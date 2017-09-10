@@ -17,6 +17,7 @@ public class Movies implements Parcelable {
     private String Overview;
     private String OriginalTitle;
     private String Adultvalue;
+    private String id;
 
 
     public Movies(){
@@ -24,7 +25,7 @@ public class Movies implements Parcelable {
     }
 
     public Movies(String name, String url, String title, String releasedate, String rating, String Overview, String
-            OriginalTitle, String Adultvalue){
+            OriginalTitle, String Adultvalue, String id){
 
         this.name = name;
         this.url = url;
@@ -34,6 +35,7 @@ public class Movies implements Parcelable {
         this.Overview = Overview;
         this.OriginalTitle = OriginalTitle;
         this.Adultvalue = Adultvalue;
+        this.id = id;
     }
 
     private Movies(Parcel p){
@@ -46,6 +48,17 @@ public class Movies implements Parcelable {
         this.Overview = p.readString();
         this.OriginalTitle = p.readString();
         this.Adultvalue = p.readString();
+        this.id = p.readString();
+    }
+
+    public void setId(String id){
+
+        this.id = id;
+    }
+
+    public String getId(){
+
+        return id;
     }
 
     public void setAdultvalue(String Adultvalue){
@@ -140,6 +153,7 @@ public class Movies implements Parcelable {
         parcel.writeString(Overview);
         parcel.writeString(OriginalTitle);
         parcel.writeString(title);
+        parcel.writeString(id);
 
     }
 

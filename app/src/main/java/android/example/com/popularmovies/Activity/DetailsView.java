@@ -1,5 +1,7 @@
 package android.example.com.popularmovies.Activity;
 
+import static java.security.AccessController.getContext;
+
 import static android.R.attr.id;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_ADULT;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_NAME;
@@ -8,25 +10,42 @@ import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.C
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_RELEASE_DATE;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_SYNOPSIS;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.TABLE_NAME;
+import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
+import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
 import static android.example.com.popularmovies.R.id.fab;
 import static android.example.com.popularmovies.R.id.fab_favourite;
 import static android.example.com.popularmovies.R.id.fab_watchlist;
 
+import java.net.URL;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.squareup.picasso.Picasso;
 
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.example.com.popularmovies.Adapters.MoviesAdapter;
+import android.example.com.popularmovies.Adapters.TrailersAdapter;
 import android.example.com.popularmovies.Data.FavouriteMoviesHelper;
+import android.example.com.popularmovies.JavaClasses.Movies;
+import android.example.com.popularmovies.JavaClasses.NetworkUtils;
+import android.example.com.popularmovies.JavaClasses.Trailers;
 import android.example.com.popularmovies.R;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.solver.widgets.Animator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -52,11 +71,16 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     private String name1;
     private String summary;
     private String url;
+    private ArrayList<Trailers> movies;
+    private ProgressDialog progressDialog;
+    private int i;
     private static final String id = "571b76d8c3a36864e00025a0";
     private TextView textView1;
     private String rating;
     private String releasedate;
     private String Adit;
+    private String movieid;
+    private RecyclerView recyclerView;
     private TextView TextTile;
     private TextView adult;
     private TextView release;
@@ -72,6 +96,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         favouriteMoviesHelper = new FavouriteMoviesHelper(getApplicationContext());
         Synopsis = (TextView) findViewById(R.id.overview);
         ratings = (TextView) findViewById(R.id.name);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view33);
         textView1 = (TextView) findViewById(R.id.trailer);
         textView1.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
@@ -116,7 +141,10 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         releasedate = intent.getStringExtra("Release Date");
         Adit = intent.getStringExtra("Adult");
         OriginalTitlevaluereceiver = intent.getStringExtra("OriginalTitle");
+        movieid = intent.getStringExtra("id");
         LOaddata();
+        //new GetMoviesTask().execute("https://api.themoviedb" +
+          //      ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
 
     }
 
@@ -208,5 +236,69 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
             fb2.setClickable(true);
             isFabOpen = true;
         }
+    }
+
+    class GetMoviesTask extends AsyncTask<String, Void, ArrayList<Trailers>> {
+
+        private String Jsonresponse = " ";
+
+        @Override protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getApplicationContext());
+            progressDialog.setTitle("LOading");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+        }
+
+        @Override protected ArrayList<Trailers> doInBackground(String... strings) {
+
+            movies = new ArrayList<>();
+            String url = strings[0];
+            URL url1 = NetworkUtils.CreateUrl(url);
+            Jsonresponse = NetworkUtils.MakeHttpRequest(url1);
+            try {
+                JSONObject root = new JSONObject(Jsonresponse);
+                JSONArray array = root.getJSONArray("results");
+                for (i = 0; i < array.length(); i++) {
+                    JSONObject object = array.getJSONObject(i);
+                    String name = object.getString("name");
+                    String key = object.getString("key");
+                    Trailers trailers = new Trailers();
+                    trailers.setTrailer(name);
+                    trailers.setUrl("https://img.youtube.com/vi/" + key + "/" + i + ".jpg");
+                    movies.add(trailers);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return movies;
+        }
+
+        @Override protected void onPostExecute(final ArrayList<Trailers> movies) {
+            super.onPostExecute(movies);
+            Log.i(LOG_TAG, "It works");
+            if (movies != null) {
+                Log.i(LOG_TAG, movies.get(2).getTrailer());
+                progressDialog.dismiss();
+                TrailersAdapter trailersAdapter = new TrailersAdapter(movies,
+                        new TrailersAdapter.OnItemClickListener() {
+                            @Override public void OnItemClick(int position) {
+                                Toast.makeText(getApplicationContext(), "ddd", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                recyclerView.setAdapter(trailersAdapter);
+            }
+
+
+
+
+
+            else {
+                Log.e(LOG_TAG, "Null arraylist returned");
+            }
+        }
+
     }
 }

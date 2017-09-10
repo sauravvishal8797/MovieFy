@@ -3,6 +3,7 @@ package android.example.com.popularmovies.Fragments;
 
 import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
 import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
+import static android.example.com.popularmovies.JavaClasses.Constants.ID;
 import static android.example.com.popularmovies.JavaClasses.Constants.IMAGE_URL;
 import static android.example.com.popularmovies.JavaClasses.Constants.MOVIE_TITLE;
 import static android.example.com.popularmovies.JavaClasses.Constants.ORIGINAL_TITLE;
@@ -129,6 +130,7 @@ public class PopularMoviesFragment extends Fragment {
                     String summary = object.getString("overview");
                     String adultv = object.getString("adult");
                     String title = object.getString("original_title");
+                    String id = object.getString("id");
                     Movies m = new Movies();
                     m.setUrl(BASE_URL + posterurl);
                     m.SetName(name);
@@ -137,6 +139,7 @@ public class PopularMoviesFragment extends Fragment {
                     m.setRating(rating);
                     m.setAdultvalue(adultv);
                     m.setOriginalTitle(title);
+                    m.setId(id);
                     movies.add(m);
 
                 }
@@ -170,6 +173,7 @@ public class PopularMoviesFragment extends Fragment {
                         intent.putExtra(RATING, movies1.getRating());
                         intent.putExtra(RELEASE_DATE, movies1.getReleasedate());
                         intent.putExtra(ORIGINAL_TITLE, movies1.getOriginalTitle());
+                        intent.putExtra(ID, movies1.getId());
                         startActivity(intent);
                     }
                 });

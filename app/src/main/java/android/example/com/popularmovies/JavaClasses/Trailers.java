@@ -11,6 +11,10 @@ public class Trailers {
     private String trailer;
     private String url;
 
+    public Trailers(){
+
+    }
+
 
     public Trailers(String trailer, String url){
 

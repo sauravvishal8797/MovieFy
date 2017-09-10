@@ -23,6 +23,8 @@ public class Constants {
 
     public static final String IMAGE_URL = "Url";
 
+    public static final String ID = "id";
+
     public static final String ORIGINAL_TITLE = "OriginalTitle";
 
     public static final String ADULT = "Adult";
