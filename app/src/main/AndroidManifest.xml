@@ -42,8 +42,6 @@
         android:launchMode="singleTop"
         android:parentActivityName=".Activity.DetailsView">
     </activity>
-    <activity android:name=".Activity.Main3Activity">
-    </activity>
   </application>
 
 </manifest>

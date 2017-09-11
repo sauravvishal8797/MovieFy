@@ -38,7 +38,7 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.ViewHo
 
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardviewitem, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardviewitem2, parent, false);
         return new ViewHolder(view);
     }
 

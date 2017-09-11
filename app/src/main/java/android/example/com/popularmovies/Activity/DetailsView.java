@@ -87,6 +87,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     private TextView release;
     private TextView OriginTitle;
     private String OriginalTitlevaluereceiver;
+    private String key;
     private FavouriteMoviesHelper favouriteMoviesHelper;
 
     @Override
@@ -107,17 +108,12 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         Synopsis = (TextView) findViewById(R.id.overview);
         ratings = (TextView) findViewById(R.id.name);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view33);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.HORIZONTAL, true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         textView1 = (TextView) findViewById(R.id.trailer);
-        textView1.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-               Intent intent = new Intent(DetailsView.this, Main3Activity.class);
-                intent.putExtra("id", movieid);
-                startActivity(intent);
-
-            }
-        });
         imageView = (ImageView) findViewById(R.id.main_imageview_placeholder);
         ratngvalue = (TextView) findViewById(R.id.value);
         adult = (TextView) findViewById(R.id.adulttext);
@@ -253,10 +249,10 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
                 for (i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
                     String name = object.getString("name");
-                    String key = object.getString("key");
+                    key = object.getString("key");
                     Trailers trailers = new Trailers();
                     trailers.setTrailer(name);
-                    trailers.setUrl("https://img.youtube.com/vi/" + key + "/" + i + ".jpg");
+                    trailers.setUrl("https://img.youtube.com/vi/" + key + "/" + "hqdefault.jpg");
                     movies.add(trailers);
 
                 }
@@ -273,7 +269,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
                 TrailersAdapter trailersAdapter = new TrailersAdapter(movies,
                         new TrailersAdapter.OnItemClickListener() {
                             @Override public void OnItemClick(int position) {
-                                Toast.makeText(getApplicationContext(), "ddd", Toast.LENGTH_SHORT).show();
+                               showTrailer(key);
                             }
                         });
 
@@ -289,5 +285,15 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
             }
         }
 
+    }
+    public void showTrailer(String id){
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + id));
+        try {
+            startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            startActivity(webIntent);
+        }
     }
 }
