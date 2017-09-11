@@ -36,10 +36,13 @@
         android:parentActivityName=".Activity.Main2Activity"
         android:theme="@style/AppTheme.2">
     </activity>
-    <activity android:name=".Activity.FavouritesActivity"
-              android:label="Favourites"
-              android:parentActivityName=".Activity.DetailsView"
-              android:launchMode="singleTop">
+    <activity
+        android:name=".Activity.FavouritesActivity"
+        android:label="Favourites"
+        android:launchMode="singleTop"
+        android:parentActivityName=".Activity.DetailsView">
+    </activity>
+    <activity android:name=".Activity.Main3Activity">
     </activity>
   </application>
 

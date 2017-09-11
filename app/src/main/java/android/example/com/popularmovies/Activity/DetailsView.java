@@ -45,6 +45,7 @@ import android.os.Bundle;
 import android.support.constraint.solver.widgets.Animator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -92,22 +93,28 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_view);
+        Intent intent = getIntent();
+        name1 = intent.getStringExtra("Title");
+        summary = intent.getStringExtra("Overview");
+        url = intent.getStringExtra("Url");
+        rating = intent.getStringExtra("Rating");
+        releasedate = intent.getStringExtra("Release Date");
+        Adit = intent.getStringExtra("Adult");
+        OriginalTitlevaluereceiver = intent.getStringExtra("OriginalTitle");
+        movieid = intent.getStringExtra("id");
 
         favouriteMoviesHelper = new FavouriteMoviesHelper(getApplicationContext());
         Synopsis = (TextView) findViewById(R.id.overview);
         ratings = (TextView) findViewById(R.id.name);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view33);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
         textView1 = (TextView) findViewById(R.id.trailer);
         textView1.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + id));
-                try{
-                    startActivity(appIntent);
-                }catch (ActivityNotFoundException e){
-                    startActivity(intent);
-
-                }
+               Intent intent = new Intent(DetailsView.this, Main3Activity.class);
+                intent.putExtra("id", movieid);
+                startActivity(intent);
 
             }
         });
@@ -133,18 +140,9 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
 
 
 
-        Intent intent = getIntent();
-        name1 = intent.getStringExtra("Title");
-        summary = intent.getStringExtra("Overview");
-        url = intent.getStringExtra("Url");
-        rating = intent.getStringExtra("Rating");
-        releasedate = intent.getStringExtra("Release Date");
-        Adit = intent.getStringExtra("Adult");
-        OriginalTitlevaluereceiver = intent.getStringExtra("OriginalTitle");
-        movieid = intent.getStringExtra("id");
         LOaddata();
-        //new GetMoviesTask().execute("https://api.themoviedb" +
-          //      ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
+        new GetMoviesTask().execute("https://api.themoviedb" +
+                ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
 
     }
 
@@ -242,13 +240,6 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
 
         private String Jsonresponse = " ";
 
-        @Override protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(getApplicationContext());
-            progressDialog.setTitle("LOading");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-        }
 
         @Override protected ArrayList<Trailers> doInBackground(String... strings) {
 
@@ -279,8 +270,6 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
             super.onPostExecute(movies);
             Log.i(LOG_TAG, "It works");
             if (movies != null) {
-                Log.i(LOG_TAG, movies.get(2).getTrailer());
-                progressDialog.dismiss();
                 TrailersAdapter trailersAdapter = new TrailersAdapter(movies,
                         new TrailersAdapter.OnItemClickListener() {
                             @Override public void OnItemClick(int position) {
