@@ -1,5 +1,6 @@
 package android.example.com.popularmovies.Data;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
@@ -8,9 +9,12 @@ import android.provider.BaseColumns;
 
 public final class MoviesContract {
 
-    public static final String DATABASE_NAME = "FavouriteMovies.db";
 
-    public static final int DATABASE_VERSION = 1;
+    public static final String CONTENT_AUTHORITY = "android.example.com.popularmovies";
+
+    public static final Uri BASE_URI = Uri.parse("Content://" + CONTENT_AUTHORITY);
+
+    public static final String PATH = "Movies";
 
     private MoviesContract(){
 

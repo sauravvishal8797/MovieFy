@@ -21,6 +21,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class FavouriteMoviesHelper extends SQLiteOpenHelper {
 
+    public static final String DATABASE_NAME = "FavouriteMovies.db";
+    public static final int DATABASE_VERSION = 1;
+
 
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
             COLOUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +

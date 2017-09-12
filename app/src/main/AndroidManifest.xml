@@ -42,6 +42,10 @@
         android:launchMode="singleTop"
         android:parentActivityName=".Activity.DetailsView">
     </activity>
+    
+    <provider android:authorities="android.example.com.popularmovies"
+              android:name=".Data.MoviesProvider"
+              android:exported="false"></provider>
   </application>
 
 </manifest>
