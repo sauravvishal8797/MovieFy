@@ -1,7 +1,4 @@
 package android.example.com.popularmovies.Data;
-
-import static android.example.com.popularmovies.Data.MoviesContract.DATABASE_NAME;
-import static android.example.com.popularmovies.Data.MoviesContract.DATABASE_VERSION;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_ADULT;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_ID;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_NAME;
