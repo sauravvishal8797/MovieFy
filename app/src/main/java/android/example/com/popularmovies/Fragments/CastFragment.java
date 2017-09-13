@@ -100,7 +100,7 @@ public class CastFragment extends Fragment {
                     String casturl = object.getString("profile_path");
                     Cast c = new Cast();
                     c.setCast_name(name);
-                    c.setCast_character(character);
+                    c.setCast_character("as " + character);
                     c.setCast_photo_url(BASE_URL + casturl);
                     cast.add(c);
                 }
