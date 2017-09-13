@@ -29,6 +29,9 @@ public class Constants {
 
     public static final String ADULT = "Adult";
 
+    public static final String CAST_URL = "https://api.themoviedb" +
+            ".org/3/movie/150540?api_key=" + API_KEY + "&append_to_response=credits";
+
     public static final String TOP_RATED = "https://api.themoviedb" +
             ".org/3/movie/top_rated?api_key=" + API_KEY + "&language=en-US";
 

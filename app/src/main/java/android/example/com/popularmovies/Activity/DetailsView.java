@@ -181,7 +181,8 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
 
             case fab_watchlist:
                 Toast.makeText(getApplicationContext(), "ghfhgjg", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
+                Intent intent = new Intent(getApplicationContext(), CastActivity.class);
+                intent.putExtra("movie_id", movieid);
                 startActivity(intent);
                 break;
 

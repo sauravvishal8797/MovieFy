@@ -10,6 +10,10 @@ public class Cast {
     private String cast_character;
     private String cast_photo_url;
 
+    public Cast(){
+
+    }
+
 
     public Cast(String cast_character, String cast_name, String cast_photo_url){
 

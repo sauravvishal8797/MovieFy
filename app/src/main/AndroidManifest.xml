@@ -48,6 +48,8 @@
         android:authorities="android.example.com.popularmovies"
         android:exported="false"/>
 
+    <activity android:name=".Activity.CastActivity">
+    </activity>
   </application>
 
 </manifest>

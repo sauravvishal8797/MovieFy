@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-                android:layout_margin="16dp"
-              android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent" xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:background="@color/cardview_shadow_start_color"
 
-  <ImageView android:layout_width="100dp"
-             android:id="@+id/cast_image"
-             android:layout_height="100dp"
-             android:src="@drawable/birthdaycard" android:layout_alignParentTop="true"
-             android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
+              android:layout_height="wrap_content">
+
+  <android.support.v7.widget.CardView
+      android:id="@+id/card_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_margin="6dp"
+      android:elevation="3dp"
+      card_view:cardCornerRadius="5dp">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:layout_height="match_parent">
+
+      <ImageView android:layout_width="100dp"
+                 android:id="@+id/cast_image"
+                 android:layout_height="100dp"
+                 android:src="@drawable/birthdaycard"/>
+
+      <TextView android:layout_width="wrap_content"
+                android:text="Stephen Colberg"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                android:id="@+id/cast_namereal"
+                android:layout_height="wrap_content"/>
+
+      <TextView android:layout_width="wrap_content"
+                android:text="POP"
+                android:id="@+id/character_played"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 
-  <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Steven Colbert"
-            android:layout_alignBottom="@+id/cast_image"
-            android:layout_toRightOf="@+id/cast_image"
-            android:layout_toEndOf="@+id/cast_image"
-            android:layout_marginLeft="41dp"
-            android:layout_marginStart="41dp"
-            android:layout_marginBottom="34dp" android:id="@+id/cast_namereal"/>
-
-  <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/character_played"
-            android:text="as Rand Peri" android:layout_alignBaseline="@+id/cast_namereal"
-            android:layout_alignBottom="@+id/cast_namereal" android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+  </android.support.v7.widget.CardView>
 
 
 
 
-
-</RelativeLayout>
+</LinearLayout>
