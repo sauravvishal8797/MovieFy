@@ -19,12 +19,13 @@
             android:layout_toEndOf="@+id/cast_image"
             android:layout_marginLeft="41dp"
             android:layout_marginStart="41dp"
-            android:layout_marginBottom="34dp" android:id="@+id/textView"/>
+            android:layout_marginBottom="34dp" android:id="@+id/cast_namereal"/>
 
   <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="as Rand Peri" android:layout_alignBaseline="@+id/textView"
-            android:layout_alignBottom="@+id/textView" android:layout_alignParentRight="true"
+            android:id="@+id/character_played"
+            android:text="as Rand Peri" android:layout_alignBaseline="@+id/cast_namereal"
+            android:layout_alignBottom="@+id/cast_namereal" android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
 
 
