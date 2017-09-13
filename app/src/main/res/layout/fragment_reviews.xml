@@ -3,6 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
               android:orientation="vertical"
+              android:id="@+id/rrrrrr"
              tools:context="android.example.com.popularmovies.Fragments.ReviewsFragment">
 
   <!-- TODO: Update blank fragment layout -->

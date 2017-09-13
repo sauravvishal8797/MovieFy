@@ -50,6 +50,8 @@
 
     <activity android:name=".Activity.CastActivity">
     </activity>
+    <activity android:name=".Activity.ReviewActivity">
+    </activity>
   </application>
 
 </manifest>
