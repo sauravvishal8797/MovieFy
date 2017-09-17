@@ -4,6 +4,7 @@
              android:layout_height="match_parent"
               android:orientation="vertical"
               android:id="@+id/rrrrrr"
+              android:background="@color/cardview_shadow_start_color"
              tools:context="android.example.com.popularmovies.Fragments.ReviewsFragment">
 
   <!-- TODO: Update blank fragment layout -->

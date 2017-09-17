@@ -12,11 +12,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.example.com.popularmovies.Adapters.CastAdapter;
 import android.example.com.popularmovies.Adapters.ReviewsAdapter;
 import android.example.com.popularmovies.JavaClasses.Cast;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
 import android.example.com.popularmovies.JavaClasses.Reviews;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,6 +43,7 @@ public class ReviewsFragment extends Fragment {
 
 
 
+
     public ReviewsFragment() {
         // Required empty public constructor
     }
@@ -55,11 +58,13 @@ public class ReviewsFragment extends Fragment {
         recyclerView.setHasFixedSize(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        new GetReviewTask().execute("http://api.themoviedb" +
+                ".org/3/movie/83542/reviews?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
 
         return root;
     }
 
-    class GetCastTask extends AsyncTask<String, Void, ArrayList<Reviews>> {
+    class GetReviewTask extends AsyncTask<String, Void, ArrayList<Reviews>> {
 
         private String Jsonresponse = " ";
 
@@ -101,10 +106,16 @@ public class ReviewsFragment extends Fragment {
             super.onPostExecute(review);
             Log.i(LOG_TAG, "It works");
             if (review != null) {
-                Log.i(LOG_TAG, review.get(2).getReviewurl());
                 progressDialog.dismiss();
 
-                reviewsAdapter = new ReviewsAdapter(review);
+                reviewsAdapter = new ReviewsAdapter(review, new ReviewsAdapter.OnItemClickListener() {
+                    @Override public void OnItemClick(int position) {
+                        Reviews r = review.get(position);
+                        String url = r.getReviewurl();
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                    }
+                });
 
                 recyclerView.setAdapter(reviewsAdapter);
             }

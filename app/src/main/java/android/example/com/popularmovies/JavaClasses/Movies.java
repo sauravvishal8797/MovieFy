@@ -20,12 +20,12 @@ public class Movies implements Parcelable {
     private String id;
 
 
-    public Movies(){
+    public Movies() {
 
     }
 
     public Movies(String name, String url, String title, String releasedate, String rating, String Overview, String
-            OriginalTitle, String Adultvalue, String id){
+            OriginalTitle, String Adultvalue, String id) {
 
         this.name = name;
         this.url = url;
@@ -38,7 +38,7 @@ public class Movies implements Parcelable {
         this.id = id;
     }
 
-    private Movies(Parcel p){
+    private Movies(Parcel p) {
 
         this.name = p.readString();
         this.url = p.readString();
@@ -51,91 +51,91 @@ public class Movies implements Parcelable {
         this.id = p.readString();
     }
 
-    public void setId(String id){
+    public void setId(String id) {
 
         this.id = id;
     }
 
-    public String getId(){
+    public String getId() {
 
         return id;
     }
 
-    public void setAdultvalue(String Adultvalue){
+    public void setAdultvalue(String Adultvalue) {
 
         this.Adultvalue = Adultvalue;
     }
 
-    public String getAdultvalue(){
+    public String getAdultvalue() {
 
         return Adultvalue;
     }
 
-    public void setOriginalTitle(String OriginalTitle){
+    public void setOriginalTitle(String OriginalTitle) {
         this.OriginalTitle = OriginalTitle;
     }
 
-    public String getOriginalTitle(){
+    public String getOriginalTitle() {
 
         return OriginalTitle;
     }
 
-    public void SetName(String name){
+    public void SetName(String name) {
 
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
 
         return name;
     }
 
-    public void SetTitle(String title){
+    public void SetTitle(String title) {
 
         this.title = title;
     }
 
-    public String getTitle(){
+    public String getTitle() {
 
         return title;
     }
 
-    public void setReleasedate(String releasedate){
+    public void setReleasedate(String releasedate) {
 
         this.releasedate = releasedate;
     }
 
-    public String getReleasedate(){
+    public String getReleasedate() {
 
         return releasedate;
     }
 
-    public void setRating(String rating){
+    public void setRating(String rating) {
 
         this.rating = rating;
     }
 
-    public String getRating(){
+    public String getRating() {
 
         return rating;
     }
 
-    public void setOverview(String Overview){
+    public void setOverview(String Overview) {
 
         this.Overview = Overview;
     }
 
-    public String getOverview(){
+    public String getOverview() {
 
         return Overview;
     }
 
-    public void setUrl(String url){
+    public void setUrl(String url) {
 
         this.url = url;
     }
 
-    public String getUrl(){
+    public String getUrl() {
 
         return url;
     }
@@ -157,7 +157,7 @@ public class Movies implements Parcelable {
 
     }
 
-    private static final Parcelable.Creator<Movies> CREATOR = new Parcelable.Creator<Movies>(){
+    private static final Parcelable.Creator<Movies> CREATOR = new Parcelable.Creator<Movies>() {
         @Override public Movies createFromParcel(Parcel parcel) {
             return new Movies(parcel);
         }

@@ -17,11 +17,17 @@ import android.widget.TextView;
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
     private ArrayList<Reviews> review;
+    private final OnItemClickListener onItemClickListener;
 
 
-    public ReviewsAdapter(ArrayList<Reviews> review){
+    public ReviewsAdapter(ArrayList<Reviews> review, OnItemClickListener onItemClickListener){
 
         this.review = review;
+        this.onItemClickListener = onItemClickListener;
+    }
+    public interface OnItemClickListener {
+
+        void OnItemClick(int position);
     }
 
 
@@ -31,6 +37,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     }
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
+
+        Reviews r = review.get(position);
+        String review = r.getReview();
+        String aut = r.getAuthor();
+        holder.mAuthor.setText(aut);
+        holder.mReview.setText(review);
 
     }
 
@@ -54,6 +66,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         @Override public void onClick(View view) {
 
             int pos = getAdapterPosition();
+            onItemClickListener.OnItemClick(pos);
 
 
         }

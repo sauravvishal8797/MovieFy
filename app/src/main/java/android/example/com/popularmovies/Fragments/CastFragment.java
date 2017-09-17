@@ -1,6 +1,9 @@
 package android.example.com.popularmovies.Fragments;
 
 
+import static android.R.attr.id;
+
+import static android.example.com.popularmovies.Activity.DetailsView.movieid;
 import static android.example.com.popularmovies.Data.MoviesProvider.LOG_TAG;
 import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
 import static android.example.com.popularmovies.JavaClasses.Constants.API_KEY;
@@ -61,8 +64,6 @@ public class CastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle = this.getArguments();
-        String id = bundle.getString("id");
 
         // Inflate the layout for this fragment
 
@@ -72,7 +73,7 @@ public class CastFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         new GetCastTask().execute("https://api.themoviedb" +
-                ".org/3/movie/" + id + "?api_key=" + API_KEY + "&append_to_response=credits");
+                ".org/3/movie/" + movieid + "?api_key=" + API_KEY + "&append_to_response=credits");
         return root;
 
     }

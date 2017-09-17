@@ -162,13 +162,6 @@ public class UpcomingMoviesFragment extends Fragment {
                         Movies movies1 = movies.get(position);
                         Log.i(LOG_TAG, movies1.getName());
                         Log.i(LOG_TAG, movies1.getUrl());
-                        intent.putExtra(MOVIE_TITLE, movies1.getName());
-                        intent.putExtra(SYNOPSIS, movies1.getOverview());
-                        intent.putExtra(IMAGE_URL, movies1.getUrl());
-                        intent.putExtra(ADULT, movies1.getAdultvalue());
-                        intent.putExtra(RATING, movies1.getRating());
-                        intent.putExtra(RELEASE_DATE, movies1.getReleasedate());
-                        intent.putExtra(ORIGINAL_TITLE, movies1.getOriginalTitle());
                         intent.putExtra(ID, movies1.getId());
                         startActivity(intent);
                     }

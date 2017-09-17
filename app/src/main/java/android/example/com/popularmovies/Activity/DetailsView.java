@@ -36,6 +36,7 @@ import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.Adapters.TrailersAdapter;
 import android.example.com.popularmovies.Data.FavouriteMoviesHelper;
 import android.example.com.popularmovies.JavaClasses.Movies;
+import android.example.com.popularmovies.JavaClasses.MoviesDetails;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
 import android.example.com.popularmovies.JavaClasses.Trailers;
 import android.example.com.popularmovies.R;
@@ -55,7 +56,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailsView extends AppCompatActivity implements View.OnClickListener{
+public class DetailsView extends AppCompatActivity implements View.OnClickListener {
 
     private TextView Synopsis;
     private static final String LOG_TAG = DetailsView.class.getSimpleName();
@@ -79,13 +80,16 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     private TextView textView1;
     private String rating;
     private String releasedate;
+    private MoviesDetails moviesDetails;
     private String Adit;
-    private String movieid;
+    public static String movieid;
     private RecyclerView recyclerView;
     private TextView TextTile;
     private TextView adult;
+    private TextView budget;
     private TextView release;
     private TextView OriginTitle;
+    private TextView revenue;
     private String OriginalTitlevaluereceiver;
     private String key;
     private FavouriteMoviesHelper favouriteMoviesHelper;
@@ -95,13 +99,6 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_view);
         Intent intent = getIntent();
-        name1 = intent.getStringExtra("Title");
-        summary = intent.getStringExtra("Overview");
-        url = intent.getStringExtra("Url");
-        rating = intent.getStringExtra("Rating");
-        releasedate = intent.getStringExtra("Release Date");
-        Adit = intent.getStringExtra("Adult");
-        OriginalTitlevaluereceiver = intent.getStringExtra("OriginalTitle");
         movieid = intent.getStringExtra("id");
 
         favouriteMoviesHelper = new FavouriteMoviesHelper(getApplicationContext());
@@ -113,8 +110,10 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+        budget = (TextView) findViewById(R.id.budgetvalue);
+        revenue = (TextView) findViewById(R.id.revenue);
         textView1 = (TextView) findViewById(R.id.trailer);
-        imageView = (ImageView) findViewById(R.id.main_imageview_placeholder);
+        imageView = (ImageView) findViewById(R.id.thumb);
         ratngvalue = (TextView) findViewById(R.id.value);
         adult = (TextView) findViewById(R.id.adulttext);
         adultvalue = (TextView) findViewById(R.id.adultvalue);
@@ -135,8 +134,9 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         fb3.setOnClickListener(this);
 
 
-
-        LOaddata();
+        //LOaddata();
+        new GetMoviesDetailsTask().execute("https://api.themoviedb" +
+                ".org/3/movie/" + movieid + "?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
         new GetMoviesTask().execute("https://api.themoviedb" +
                 ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
 
@@ -163,7 +163,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
 
         int id = view.getId();
 
-        switch (id){
+        switch (id) {
 
             case fab_favourite:
 
@@ -187,31 +187,34 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case fab:
-               animatefab();
+                // animatefab();
+                Intent intent1 = new Intent(getApplicationContext(), ReviewActivity.class);
+                startActivity(intent1);
+
                 break;
 
         }
 
     }
 
-    public boolean checkExists(){
+    public boolean checkExists() {
         SQLiteDatabase database = favouriteMoviesHelper.getReadableDatabase();
-       Cursor c = database.query(TABLE_NAME, new String[]{COLOUMN_NAME, COLOUMN_POSTERS, COLOUMN_SYNOPSIS}, COLOUMN_NAME + "=?", new
-                       String[]{OriginalTitlevaluereceiver}, null,
-               null, null);
-        if(c != null){
+        Cursor c = database.query(TABLE_NAME, new String[]{COLOUMN_NAME, COLOUMN_POSTERS, COLOUMN_SYNOPSIS},
+                COLOUMN_NAME + "=?", new
+                        String[]{OriginalTitlevaluereceiver}, null,
+                null, null);
+        if (c != null) {
             return false;
 
-        }
-        else{
+        } else {
             return true;
         }
 
     }
 
-    public void animatefab(){
+    public void animatefab() {
 
-        if(isFabOpen){
+        if (isFabOpen) {
 
             fb3.startAnimation(animator3);
             fb1.startAnimation(animator2);
@@ -221,8 +224,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
             isFabOpen = false;
             Log.i(LOG_TAG, "Done");
 
-        }
-        else{
+        } else {
 
             fb3.startAnimation(animator3);
             fb1.startAnimation(animator1);
@@ -233,68 +235,142 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    class GetMoviesTask extends AsyncTask<String, Void, ArrayList<Trailers>> {
+    class GetMoviesDetailsTask extends AsyncTask<String, Void, MoviesDetails> {
 
         private String Jsonresponse = " ";
 
 
-        @Override protected ArrayList<Trailers> doInBackground(String... strings) {
+        @Override protected MoviesDetails doInBackground(String... strings) {
 
-            movies = new ArrayList<>();
             String url = strings[0];
             URL url1 = NetworkUtils.CreateUrl(url);
             Jsonresponse = NetworkUtils.MakeHttpRequest(url1);
             try {
                 JSONObject root = new JSONObject(Jsonresponse);
-                JSONArray array = root.getJSONArray("results");
-                for (i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
-                    String name = object.getString("name");
-                    key = object.getString("key");
-                    Trailers trailers = new Trailers();
-                    trailers.setTrailer(name);
-                    trailers.setUrl("https://img.youtube.com/vi/" + key + "/" + "hqdefault.jpg");
-                    movies.add(trailers);
 
-                }
+
+                    String name = root.getString("title");
+                    String posterurl = root.getString("poster_path");
+                    String date = root.getString("release_date");
+                    String rating = root.getString("vote_average");
+                    String summary = root.getString("overview");
+                    String adultv = root.getString("adult");
+                    String title = root.getString("original_title");
+                    String id = root.getString("id");
+                    String budget = root.getString("budget");
+                    String homepage = root.getString("homepage");
+                    String revenue = root.getString("revenue");
+                    String runtime = root.getString("runtime");
+                    JSONArray genreArray = root.getJSONArray("genre");
+                    StringBuilder genre = new StringBuilder();
+
+                    for (i = 0; i < genreArray.length(); i++) {
+                        JSONObject genreobject = genreArray.getJSONObject(i);
+                        String g = genreobject.getString("name");
+                        genre.append(g + ",");
+                    }
+                    String ge2 = genre.toString();
+                    moviesDetails = new MoviesDetails();
+                    moviesDetails.setRevenue(revenue);
+                    moviesDetails.setBudget(budget);
+                    moviesDetails.setRuntime(runtime);
+                    moviesDetails.setAdultvalue(adultv);
+                    moviesDetails.setOriginalTitle(title);
+                    moviesDetails.setOverview(summary);
+                    moviesDetails.setGenre(ge2);
+                    moviesDetails.setHomepage(homepage);
+                    moviesDetails.setId(id);
+                    moviesDetails.setRating(rating);
+                    moviesDetails.setReleasedate(date);
+                    moviesDetails.setUrl(posterurl);
+                    moviesDetails.SetName(name);
+
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return movies;
+            return moviesDetails;
         }
 
-        @Override protected void onPostExecute(final ArrayList<Trailers> movies) {
-            super.onPostExecute(movies);
-            Log.i(LOG_TAG, "It works");
-            if (movies != null) {
-                TrailersAdapter trailersAdapter = new TrailersAdapter(movies,
-                        new TrailersAdapter.OnItemClickListener() {
-                            @Override public void OnItemClick(int position) {
-                               showTrailer(key);
-                            }
-                        });
+        @Override protected void onPostExecute(MoviesDetails m) {
+            super.onPostExecute(m);
+           // Log.i(LOG_TAG, m.getName());
 
-                recyclerView.setAdapter(trailersAdapter);
+
+
+                ratings.setText(m.getName());
+                rdate.setText(m.getReleasedate());
+                ratngvalue.setText(m.getRating());
+                Synopsis.setText(m.getOverview());
+                adultvalue.setText(m.getAdultvalue());
+                Originaltitvalue.setText(m.getOriginalTitle());
+                budget.setText(m.getBudget());
+                revenue.setText(m.getRevenue());
+
             }
 
+        }
 
 
+        class GetMoviesTask extends AsyncTask<String, Void, ArrayList<Trailers>> {
+
+            private String Jsonresponse = " ";
 
 
-            else {
-                Log.e(LOG_TAG, "Null arraylist returned");
+            @Override protected ArrayList<Trailers> doInBackground(String... strings) {
+
+                movies = new ArrayList<>();
+                String url = strings[0];
+                URL url1 = NetworkUtils.CreateUrl(url);
+                Jsonresponse = NetworkUtils.MakeHttpRequest(url1);
+                try {
+                    JSONObject root = new JSONObject(Jsonresponse);
+                    JSONArray array = root.getJSONArray("results");
+                    for (i = 0; i < array.length(); i++) {
+                        JSONObject object = array.getJSONObject(i);
+                        String name = object.getString("name");
+                        key = object.getString("key");
+                        Trailers trailers = new Trailers();
+                        trailers.setTrailer(name);
+                        trailers.setUrl("https://img.youtube.com/vi/" + key + "/" + "hqdefault.jpg");
+                        movies.add(trailers);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return movies;
+            }
+
+            @Override protected void onPostExecute(final ArrayList<Trailers> movies) {
+                super.onPostExecute(movies);
+                Log.i(LOG_TAG, "It works");
+                if (movies != null) {
+                    TrailersAdapter trailersAdapter = new TrailersAdapter(movies,
+                            new TrailersAdapter.OnItemClickListener() {
+                                @Override public void OnItemClick(int position) {
+                                    showTrailer(key);
+                                }
+                            });
+
+                    recyclerView.setAdapter(trailersAdapter);
+                } else {
+                    Log.e(LOG_TAG, "Null arraylist returned");
+                }
+            }
+
+        }
+
+        public void showTrailer(String id) {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v=" + id));
+            try {
+                startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                startActivity(webIntent);
             }
         }
+    }
 
-    }
-    public void showTrailer(String id){
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
-        Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://www.youtube.com/watch?v=" + id));
-        try {
-            startActivity(appIntent);
-        } catch (ActivityNotFoundException ex) {
-            startActivity(webIntent);
-        }
-    }
-}

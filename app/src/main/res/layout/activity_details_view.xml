@@ -20,7 +20,7 @@
         app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
       <ImageView
-          android:id="@+id/main.imageview.placeholder"
+          android:id="@+id/thumb"
           android:layout_width="match_parent"
           android:contentDescription="@string/desc"
           android:layout_height="400sp"
@@ -49,10 +49,15 @@
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="fffffffffff"
                     android:id="@+id/name"
                     android:textSize="25sp"
                     android:textColor="@color/cardview_light_background"
                     android:layout_gravity="center"/>
+          <TextView android:layout_width="wrap_content"
+                    android:text="jjjjjjjjj"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"/>
 
 
 
@@ -180,6 +185,25 @@
 
           <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Budget"
+                    android:textColor="#000000"
+                    android:id="@+id/budget"
+                    android:textSize="17sp"
+                    android:layout_marginRight="16sp"/>
+
+          <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/budgetvalue"
+                    android:text="@string/original_title_value"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+
+          <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/Original_title"
                     android:textColor="#000000"
                     android:id="@+id/orignaltit"
@@ -190,6 +214,26 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/originaltitvalue"
                     android:text="@string/original_title_value"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+
+          <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revenue"
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    android:layout_marginRight="16sp"/>
+
+          <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/revenue"
+                    android:text="@string/original_title_value"/>
+
 
         </LinearLayout>
 
