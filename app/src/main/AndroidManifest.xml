@@ -19,7 +19,7 @@
     </activity>
     <activity
         android:name=".Activity.DetailsView"
-        android:parentActivityName=".Activity.DetailsView">
+        android:parentActivityName=".Activity.Main2Activity">
     </activity>
     <activity
         android:name=".Activity.SplashScreenActivity"

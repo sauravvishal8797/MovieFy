@@ -34,6 +34,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.Adapters.TrailersAdapter;
+import android.example.com.popularmovies.Adapters.ViewPagerFragmentAdapter;
 import android.example.com.popularmovies.Data.FavouriteMoviesHelper;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.JavaClasses.MoviesDetails;
@@ -45,9 +46,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.solver.widgets.Animator;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -97,23 +101,33 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_view);
+        setContentView(R.layout.demo);
         Intent intent = getIntent();
         movieid = intent.getStringExtra("id");
 
-        favouriteMoviesHelper = new FavouriteMoviesHelper(getApplicationContext());
-        Synopsis = (TextView) findViewById(R.id.overview);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+
+        //favouriteMoviesHelper = new FavouriteMoviesHelper(getApplicationContext());
+        //Synopsis = (TextView) findViewById(R.id.overview);
         ratings = (TextView) findViewById(R.id.name);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view33);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.HORIZONTAL, true);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        budget = (TextView) findViewById(R.id.budgetvalue);
-        revenue = (TextView) findViewById(R.id.revenue);
-        textView1 = (TextView) findViewById(R.id.trailer);
         imageView = (ImageView) findViewById(R.id.thumb);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager2);
+        ViewPagerFragmentAdapter viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), 4);
+        viewPager.setAdapter(viewPagerFragmentAdapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout2);
+        tabLayout.setupWithViewPager(viewPager);
+
+        //recyclerView = (RecyclerView) findViewById(R.id.recycler_view33);
+        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),
+               // LinearLayoutManager.HORIZONTAL, true);
+        //linearLayoutManager.setReverseLayout(true);
+        //linearLayoutManager.setStackFromEnd(true);
+        //recyclerView.setLayoutManager(linearLayoutManager);
+        //budget = (TextView) findViewById(R.id.budgetvalue);
+       /** revenue = (TextView) findViewById(R.id.revenue);
+        textView1 = (TextView) findViewById(R.id.trailer);
+
         ratngvalue = (TextView) findViewById(R.id.value);
         adult = (TextView) findViewById(R.id.adulttext);
         adultvalue = (TextView) findViewById(R.id.adultvalue);
@@ -138,7 +152,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         new GetMoviesDetailsTask().execute("https://api.themoviedb" +
                 ".org/3/movie/" + movieid + "?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
         new GetMoviesTask().execute("https://api.themoviedb" +
-                ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
+                ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");*/
 
     }
 
