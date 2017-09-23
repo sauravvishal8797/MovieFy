@@ -118,14 +118,14 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout2);
         tabLayout.setupWithViewPager(viewPager);
 
-        //recyclerView = (RecyclerView) findViewById(R.id.recycler_view33);
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),
-               // LinearLayoutManager.HORIZONTAL, true);
-        //linearLayoutManager.setReverseLayout(true);
-        //linearLayoutManager.setStackFromEnd(true);
-        //recyclerView.setLayoutManager(linearLayoutManager);
-        //budget = (TextView) findViewById(R.id.budgetvalue);
-       /** revenue = (TextView) findViewById(R.id.revenue);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view33);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.HORIZONTAL, true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        budget = (TextView) findViewById(R.id.budgetvalue);
+        revenue = (TextView) findViewById(R.id.revenue);
         textView1 = (TextView) findViewById(R.id.trailer);
 
         ratngvalue = (TextView) findViewById(R.id.value);
@@ -152,7 +152,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         new GetMoviesDetailsTask().execute("https://api.themoviedb" +
                 ".org/3/movie/" + movieid + "?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
         new GetMoviesTask().execute("https://api.themoviedb" +
-                ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");*/
+                ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
 
     }
 
