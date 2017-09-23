@@ -166,6 +166,7 @@ public class PopularMoviesFragment extends Fragment {
                         Movies movies1 = movies.get(position);
                         Log.i(LOG_TAG, movies1.getName());
                         Log.i(LOG_TAG, movies1.getUrl());
+                        intent.putExtra("url", movies1.getUrl());
                         intent.putExtra(ID, movies1.getId());
                         startActivity(intent);
                     }

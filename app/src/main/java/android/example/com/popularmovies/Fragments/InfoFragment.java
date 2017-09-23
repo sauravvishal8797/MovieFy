@@ -113,9 +113,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         //LOaddata();
         new GetMoviesDetailsTask().execute("https://api.themoviedb" +
-                ".org/3/movie/" + movieid + "?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
+                ".org/3/movie/150540?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
         new GetMoviesTask().execute("https://api.themoviedb" +
-                ".org/3/movie/" + movieid + "/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
+                ".org/3/movie/150540/videos?api_key=e2a51d701ca40655dbb7d5156ff2f42e&language=en-US");
 
 
         return root;
