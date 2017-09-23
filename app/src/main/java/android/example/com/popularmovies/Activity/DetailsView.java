@@ -38,6 +38,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.example.com.popularmovies.Adapters.DetailsFragmentAdapter;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.Adapters.TrailersAdapter;
 import android.example.com.popularmovies.Adapters.ViewPagerFragmentAdapter;
@@ -94,8 +95,8 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         setSupportActionBar(toolbar);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager2);
-        ViewPagerFragmentAdapter viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), 4);
-        viewPager.setAdapter(viewPagerFragmentAdapter);
+        DetailsFragmentAdapter detailsFragmentAdapter = new DetailsFragmentAdapter(getSupportFragmentManager(), 3);
+        viewPager.setAdapter(detailsFragmentAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout2);
         tabLayout.setupWithViewPager(viewPager);
 
