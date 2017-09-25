@@ -1,6 +1,7 @@
 package android.example.com.popularmovies.Fragments;
 
 
+
 import static android.example.com.popularmovies.Activity.DetailsView.movieid;
 import static android.example.com.popularmovies.Data.MoviesProvider.LOG_TAG;
 import static android.example.com.popularmovies.R.id.fab;
@@ -53,6 +54,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private TextView ratngvalue;
     private TextView adultvalue;
     private TextView release;
+    private TextView runhours;
     private TextView rdate;
     private TextView OriginTitle;
     private TextView Originaltitvalue;
@@ -62,7 +64,6 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private Animation animator3;
     private Animation animation4;
     private ArrayList<Trailers> movies;
-    private MoviesDetails moviesDetails;
     private TextView ratings;
     private String key;
 
@@ -98,7 +99,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         rdate = (TextView) root.findViewById(R.id.date);
         OriginTitle = (TextView) root.findViewById(R.id.orignaltit);
         Originaltitvalue = (TextView) root.findViewById(R.id.originaltitvalue);
-        fb1 = (FloatingActionButton) root.findViewById(fab);
+        fb1 = (FloatingActionButton) root.findViewById(R.id.fab);
         fb2 = (FloatingActionButton) root.findViewById(R.id.fab_favourite);
         fb3 = (FloatingActionButton) root.findViewById(R.id.fab_watchlist);
         animator1 = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
@@ -106,9 +107,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         animator3 = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
         animation4 = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_backward);
 
-        fb1.setOnClickListener(this);
-        fb2.setOnClickListener(this);
-        fb3.setOnClickListener(this);
+        //fb1.setOnClickListener(this);
+        //fb2.setOnClickListener(this);
+        //fb3.setOnClickListener(this);
 
 
         //LOaddata();
@@ -126,6 +127,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     }
 
     class GetMoviesDetailsTask extends AsyncTask<String, Void, MoviesDetails> {
+
+        MoviesDetails moviesDetails;
 
         private String Jsonresponse = " ";
 
@@ -148,10 +151,11 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 String title = root.getString("original_title");
                 String id = root.getString("id");
                 String budget = root.getString("budget");
+                Log.i("hjhjhj", budget);
                 String homepage = root.getString("homepage");
                 String revenue = root.getString("revenue");
                 String runtime = root.getString("runtime");
-                JSONArray genreArray = root.getJSONArray("genre");
+                JSONArray genreArray = root.getJSONArray("genres");
                 StringBuilder genre = new StringBuilder();
 
                 for (int i = 0; i < genreArray.length(); i++) {

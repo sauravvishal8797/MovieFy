@@ -26,6 +26,8 @@ public final class MoviesContract {
 
         public static final String COLOUMN_ID = "id";
 
+        public static final String MOVIIE_ID = "movieid";
+
         public static final String COLOUMN_NAME = "MovieName";
 
         public static final String COLOUMN_SYNOPSIS = "Synopsis";

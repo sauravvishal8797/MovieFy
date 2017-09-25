@@ -63,6 +63,7 @@ public class DbAdapter extends RecyclerView.Adapter<DbAdapter.ViewHolder> {
         return cursor.getCount();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name;

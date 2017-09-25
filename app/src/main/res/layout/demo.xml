@@ -38,7 +38,7 @@
         <FrameLayout
             android:id="@+id/main.framelayout.title"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:background="@color/cardview_dark_background"
             android:orientation="vertical">
@@ -85,6 +85,7 @@
 
           <ImageView android:layout_width="match_parent"
                      android:scaleType="fitXY"
+                     app:behavior_overlapTop="30dp"
                      android:src="@drawable/birthdaycard"
                      android:layout_height="match_parent"/>
 
@@ -178,11 +179,19 @@
       android:fillViewport="true"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+      <android.support.v4.view.ViewPager
+          android:id="@+id/pager2"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+
 
 
 

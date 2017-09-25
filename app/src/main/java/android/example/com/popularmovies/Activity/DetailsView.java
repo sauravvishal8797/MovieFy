@@ -69,7 +69,7 @@ import android.widget.Toast;
 
 public class DetailsView extends AppCompatActivity implements View.OnClickListener {
 
-   private static String movieid;
+   public static String movieid;
     private FloatingActionButton fb1, fb2, fb3;
     private Animation animator1;
     private Animation animator2;
@@ -178,15 +178,19 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
             try {
                 JSONObject root = new JSONObject(Jsonresponse);
                 String run = root.getString("runtime");
+                Integer time = Integer.parseInt(run);
+                Integer hours = time/60;
+                Integer min = time%60;
+                String runtime = String.valueOf(hours) + " hrs " + String.valueOf(min) + " mins";
                 StringBuilder genre = new StringBuilder();
                 JSONArray Genres = root.getJSONArray("genres");
                 for(int i = 0; i < Genres.length(); i++){
                     JSONObject object = Genres.getJSONObject(i);
                     String g = object.getString("name");
-                    genre.append(g + ",");
+                    genre.append(g + ", ");
                 }
                 String title = root.getString("original_title");
-                map.put("time", run);
+                map.put("time", runtime);
                 map.put("genre", String.valueOf(genre));
                 map.put("title", title);
 

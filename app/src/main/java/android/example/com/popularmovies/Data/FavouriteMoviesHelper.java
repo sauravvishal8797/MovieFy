@@ -6,6 +6,7 @@ import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.C
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_RATING;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_RELEASE_DATE;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_SYNOPSIS;
+import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.MOVIIE_ID;
 import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.TABLE_NAME;
 
 import android.content.Context;
@@ -29,6 +30,7 @@ public class FavouriteMoviesHelper extends SQLiteOpenHelper {
             COLOUMN_RATING + " DOUBLE" +
             ", " +
             COLOUMN_POSTERS + " TEXT, " +
+            MOVIIE_ID + " TEXT, " +
             COLOUMN_RELEASE_DATE + " TEXT, " +
             COLOUMN_SYNOPSIS + " TEXT" + ");";
 
