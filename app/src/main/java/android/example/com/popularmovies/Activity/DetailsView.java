@@ -77,6 +77,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     private Animation animation4;
     private ImageView imageView;
     private String url;
+    private ImageView thumbnail;
     private TextView run;
     private TextView movietitle;
     private TextView moviegenre;
@@ -101,6 +102,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         tabLayout.setupWithViewPager(viewPager);
 
         fb1 = (FloatingActionButton) findViewById(fab);
+        thumbnail = (ImageView ) findViewById(R.id.moviethumbnail);
         run = (TextView) findViewById(R.id.duration);
         movietitle = (TextView) findViewById(R.id.main_title);
         moviegenre = (TextView) findViewById(R.id.Genre) ;
@@ -130,6 +132,10 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         Picasso.with(this).load(url).placeholder(R
                 .drawable.birthdaycard)
                 .into(imageView);
+        Picasso.with(this).load(url).placeholder(R
+                .drawable.birthdaycard)
+                .into(thumbnail);
+
 
     }
 

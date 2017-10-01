@@ -48,7 +48,6 @@ import android.example.com.popularmovies.R;
 public class CastFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ProgressDialog progressDialog;
     private ArrayList<Cast> cast;
     private CastAdapter castAdapter;
 
@@ -83,10 +82,6 @@ public class CastFragment extends Fragment {
 
         @Override protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("LOading");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
         }
 
         @Override protected ArrayList<Cast> doInBackground(String... strings) {
@@ -121,7 +116,6 @@ public class CastFragment extends Fragment {
             Log.i(LOG_TAG, "It works");
             if (cast != null) {
                 Log.i(LOG_TAG, cast.get(2).getCast_name());
-                progressDialog.dismiss();
 
                 castAdapter = new CastAdapter(cast);
 

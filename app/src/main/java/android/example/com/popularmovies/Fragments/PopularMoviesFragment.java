@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.example.com.popularmovies.Activity.DetailsView;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.JavaClasses.Constants;
+import android.example.com.popularmovies.JavaClasses.EndlessRecyclerViewScrollListener;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
 import android.net.ConnectivityManager;
@@ -57,6 +58,8 @@ public class PopularMoviesFragment extends Fragment {
     private MoviesAdapter moviesAdapter;
     private SwipeRefreshLayout layout;
 
+    private EndlessRecyclerViewScrollListener endlessRecyclerViewScrollListener;
+
 
     public PopularMoviesFragment() {
         // Required empty public constructor
@@ -80,8 +83,22 @@ public class PopularMoviesFragment extends Fragment {
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
+        endlessRecyclerViewScrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+
+                loadNextDataFromApi(page);
+
+            }
+        };
         Checknetworkinfo();
         return rootview;
+    }
+
+    public void loadNextDataFromApi(int offset){
+
+        new GetMoviesTask().execute("https://api.themoviedb" +
+                ".org/3/movie/popular?api_key=e2a51d701ca40655dbb7d5156ff2f42e&append_to_response=credits&&"
+                + "page=" + offset );
     }
 
     private void Checknetworkinfo() {

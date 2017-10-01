@@ -37,7 +37,6 @@ import android.example.com.popularmovies.R;
 public class ReviewsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ProgressDialog progressDialog;
     private ArrayList<Reviews> review;
     private ReviewsAdapter reviewsAdapter;
 
@@ -70,10 +69,6 @@ public class ReviewsFragment extends Fragment {
 
         @Override protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("LOading");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
         }
 
         @Override protected ArrayList<Reviews> doInBackground(String... strings) {
@@ -106,8 +101,6 @@ public class ReviewsFragment extends Fragment {
             super.onPostExecute(review);
             Log.i(LOG_TAG, "It works");
             if (review != null) {
-                progressDialog.dismiss();
-
                 reviewsAdapter = new ReviewsAdapter(review, new ReviewsAdapter.OnItemClickListener() {
                     @Override public void OnItemClick(int position) {
                         Reviews r = review.get(position);
