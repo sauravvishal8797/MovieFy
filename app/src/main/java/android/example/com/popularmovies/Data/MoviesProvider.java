@@ -89,10 +89,6 @@ public class MoviesProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri, null);
         return uri1;
 
-
-
-
-
     }
 
     @Override public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {

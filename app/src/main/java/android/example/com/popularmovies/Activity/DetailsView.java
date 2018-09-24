@@ -222,11 +222,5 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         }
 
     }
-
-
-
-
-
-
-    }
+}
 

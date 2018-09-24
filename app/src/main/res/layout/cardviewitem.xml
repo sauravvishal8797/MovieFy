@@ -9,9 +9,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_gravity="center"
-      android:layout_margin="6dp"
-      android:elevation="3dp"
-      card_view:cardCornerRadius="5dp">
+      android:layout_margin="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +19,7 @@
           android:id="@+id/thumbnail"
           android:layout_width="match_parent"
           android:contentDescription="@string/desc"
-          android:layout_height="180sp"
+          android:layout_height="170sp"
           android:background="?attr/selectableItemBackgroundBorderless"
           android:clickable="true"
           android:src="@drawable/birthdaycard"
@@ -33,10 +31,12 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/thumbnail"
-          android:paddingLeft="16sp"
-          android:paddingRight="16sp"
-          android:paddingTop="16sp"
-          android:paddingBottom="16sp"
+          android:paddingLeft="10sp"
+          android:maxLines="1"
+          android:ellipsize="end"
+          android:paddingRight="10sp"
+          android:paddingTop="10sp"
+          android:paddingBottom="10sp"
           android:textColor="@color/cardview_dark_background"
           android:textSize="15sp"/>
 
