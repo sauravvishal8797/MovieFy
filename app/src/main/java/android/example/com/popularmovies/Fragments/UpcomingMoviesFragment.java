@@ -155,17 +155,7 @@ public class UpcomingMoviesFragment extends Fragment {
                 Log.i(LOG_TAG, movies.get(2).getName());
                 progressDialog.dismiss();
                 layout.setRefreshing(false);
-                moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
-                    @Override public void OnItemClick(int position) {
-                        Intent intent = new Intent(getContext(), DetailsView.class);
-
-                        Movies movies1 = movies.get(position);
-                        Log.i(LOG_TAG, movies1.getName());
-                        Log.i(LOG_TAG, movies1.getUrl());
-                        intent.putExtra(ID, movies1.getId());
-                        startActivity(intent);
-                    }
-                });
+                moviesAdapter = new MoviesAdapter(movies);
 
                 recyclerView.setAdapter(moviesAdapter);
             }

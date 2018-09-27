@@ -1,24 +1,7 @@
 package android.example.com.popularmovies.Activity;
 
-import static java.security.AccessController.getContext;
-
-import static android.R.attr.id;
-import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_ADULT;
-import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_NAME;
-import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_POSTERS;
-import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_RATING;
-import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_RELEASE_DATE;
-import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.COLOUMN_SYNOPSIS;
-import static android.example.com.popularmovies.Data.MoviesContract.MovieEntry.TABLE_NAME;
 import static android.example.com.popularmovies.Data.MoviesProvider.LOG_TAG;
-import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
-import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
-import static android.example.com.popularmovies.R.id.adultvalue;
-import static android.example.com.popularmovies.R.id.budget;
 import static android.example.com.popularmovies.R.id.fab;
-import static android.example.com.popularmovies.R.id.fab_favourite;
-import static android.example.com.popularmovies.R.id.fab_watchlist;
-import static android.example.com.popularmovies.R.id.revenue;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -64,6 +47,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +64,8 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
     private ImageView thumbnail;
     private TextView run;
     private TextView movietitle;
+    private ProgressBar titleProgressBar;
+    private ProgressBar detailProgressbar;
     private TextView moviegenre;
     private boolean isFabOpen = true;
     private Map<String, String> map;
@@ -105,6 +91,7 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         thumbnail = (ImageView ) findViewById(R.id.moviethumbnail);
         run = (TextView) findViewById(R.id.duration);
         movietitle = (TextView) findViewById(R.id.main_title);
+        titleProgressBar = (ProgressBar) findViewById(R.id.title_progressbar);
         moviegenre = (TextView) findViewById(R.id.Genre) ;
         imageView = (ImageView) findViewById(R.id.thumb);
         fb2 = (FloatingActionButton) findViewById(R.id.fab_favourite);
@@ -120,10 +107,6 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
 
 
         LOaddata();
-        new GetDEtailsTask().execute("https://api.themoviedb" +
-                ".org/3/movie/" + movieid + "?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
-
-
     }
 
 
@@ -135,6 +118,9 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         Picasso.with(this).load(url).placeholder(R
                 .drawable.birthdaycard)
                 .into(thumbnail);
+        new GetDEtailsTask().execute("https://api.themoviedb" +
+                ".org/3/movie/" + movieid + "?api_key=e2a51d701ca40655dbb7d5156ff2f42e");
+
 
 
     }
@@ -174,6 +160,14 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
 
         private String Jsonresponse = " ";
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            movietitle.setVisibility(View.INVISIBLE);
+            moviegenre.setVisibility(View.INVISIBLE);
+            run.setVisibility(View.INVISIBLE);
+            titleProgressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override protected Map<String, String> doInBackground(String... strings) {
 
@@ -199,8 +193,6 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
                 map.put("time", runtime);
                 map.put("genre", String.valueOf(genre));
                 map.put("title", title);
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -210,8 +202,11 @@ public class DetailsView extends AppCompatActivity implements View.OnClickListen
         @Override protected void onPostExecute(final Map<String, String> map) {
             super.onPostExecute(map);
             Log.i(LOG_TAG, "It works");
+            titleProgressBar.setVisibility(View.INVISIBLE);
             if (map != null) {
-
+                movietitle.setVisibility(View.VISIBLE);
+                moviegenre.setVisibility(View.VISIBLE);
+                run.setVisibility(View.VISIBLE);
                 run.setText(map.get("time"));
                 movietitle.setText(map.get("title"));
                 moviegenre.setText(map.get("genre"));

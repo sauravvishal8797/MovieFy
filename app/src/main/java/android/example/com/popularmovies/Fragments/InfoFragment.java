@@ -36,6 +36,8 @@ import android.view.ViewGroup;
 import android.example.com.popularmovies.R;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -58,6 +60,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private TextView rdate;
     private TextView OriginTitle;
     private TextView Originaltitvalue;
+    private LinearLayout infoLayout;
+    private ProgressBar infoProgressbar;
     private FloatingActionButton fb1, fb2, fb3;
     private Animation animator1;
     private Animation animator2;
@@ -81,6 +85,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_info, container, false);
+        infoLayout = (LinearLayout) root.findViewById(R.id.info_layout);
+        infoProgressbar = (ProgressBar) root.findViewById(R.id.info_progressbar);
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view33);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, true);
@@ -132,6 +138,14 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         private String Jsonresponse = " ";
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+           // infoProgressbar = (ProgressBar)
+            infoProgressbar.setVisibility(View.VISIBLE);
+            infoLayout.setVisibility(View.INVISIBLE);
+
+        }
 
         @Override protected MoviesDetails doInBackground(String... strings) {
 
@@ -190,10 +204,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         @Override protected void onPostExecute(MoviesDetails m) {
             super.onPostExecute(m);
             // Log.i(LOG_TAG, m.getName());
-
-
-
-
+            infoProgressbar.setVisibility(View.INVISIBLE);
+            infoLayout.setVisibility(View.VISIBLE);
             rdate.setText(m.getReleasedate());
             ratngvalue.setText(m.getRating());
             overveiew.setText(m.getOverview());

@@ -49,7 +49,6 @@ import android.widget.Toast;
  */
 public class PopularMoviesFragment extends Fragment {
 
-
     private ArrayList<Movies> movies;
     private static final String LOG_TAG = PopularMoviesFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
@@ -59,6 +58,21 @@ public class PopularMoviesFragment extends Fragment {
     private SwipeRefreshLayout layout;
 
     private EndlessRecyclerViewScrollListener endlessRecyclerViewScrollListener;
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Movies m = (Movies) view.findViewById(R.id.thumbnail).getTag();
+            Log.i("lalalala", m.getName());
+            Intent intent = new Intent(getContext(), DetailsView.class);
+            Log.i(LOG_TAG, m.getName());
+            Log.i(LOG_TAG, m.getUrl());
+            intent.putExtra("url", m.getUrl());
+            intent.putExtra(ID, m.getId());
+            startActivity(intent);
+
+        }
+    };
 
 
     public PopularMoviesFragment() {
@@ -77,8 +91,6 @@ public class PopularMoviesFragment extends Fragment {
                 Checknetworkinfo();
             }
         });
-
-
         recyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view33);
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -91,6 +103,7 @@ public class PopularMoviesFragment extends Fragment {
             }
         };
         Checknetworkinfo();
+       // Log.i("opppp", String.valueOf(movies.size()));
         return rootview;
     }
 
@@ -173,33 +186,15 @@ public class PopularMoviesFragment extends Fragment {
                 Log.i(LOG_TAG, movies.get(2).getName());
                 progressDialog.dismiss();
                 layout.setRefreshing(false);
-
-
-
-                moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
-                    @Override public void OnItemClick(int position) {
-                        Intent intent = new Intent(getContext(), DetailsView.class);
-
-                        Movies movies1 = movies.get(position);
-                        Log.i(LOG_TAG, movies1.getName());
-                        Log.i(LOG_TAG, movies1.getUrl());
-                        intent.putExtra("url", movies1.getUrl());
-                        intent.putExtra(ID, movies1.getId());
-                        startActivity(intent);
-                    }
-                });
-
+                moviesAdapter = new MoviesAdapter(movies);
+                //moviesAdapter.setOnClickListener(onClickListener);
+                moviesAdapter.setOnClickListener(onClickListener);
                 recyclerView.setAdapter(moviesAdapter);
             }
-
-
             else {
                 Log.e(LOG_TAG, "Null arraylist returned");
             }
         }
 
     }
-
-
-
 }

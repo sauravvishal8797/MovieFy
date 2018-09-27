@@ -1,6 +1,7 @@
 <LinearLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:id="@+id/info_layout"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,154 +10,167 @@
               android:scrollbars="vertical"
               android:layout_height="match_parent">
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:layout_marginLeft="20dp"
-                  android:layout_marginBottom="20dp">
-
-
-
-      <LinearLayout android:layout_width="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/release"
-                  android:id="@+id/releasetext"
-                  android:textColor="#000000"
-                  android:layout_marginRight="16dp"
-                  android:textSize="17sp"/>
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/date"
-                  android:text="@string/date"/>
-
-      </LinearLayout>
-
-      <LinearLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/rating"
-                  android:textColor="#000000"
-                  android:id="@+id/ratingtext"
-                  android:textSize="17sp"
-                  android:layout_marginRight="16dp"/>
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/value"
-                  android:text="@string/rate_value"/>
-
-      </LinearLayout>
-
-      <LinearLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/adult"
-                  android:textColor="#000000"
-                  android:id="@+id/adulttext"
-                  android:textSize="17sp"
-                  android:layout_marginRight="16sp"/>
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/adultvalue"
-                  android:text="@string/adult_value"/>
-
-      </LinearLayout>
-
-      <LinearLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Budget"
-                  android:textColor="#000000"
-                  android:id="@+id/budget"
-                  android:textSize="17sp"
-                  android:layout_marginRight="16sp"/>
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/budgetvalue"
-                  android:text="@string/original_title_value"/>
-
-      </LinearLayout>
-
-      <LinearLayout android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/Original_title"
-                  android:textColor="#000000"
-                  android:id="@+id/orignaltit"
-                  android:textSize="17sp"
-                  android:layout_marginRight="16sp"/>
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/originaltitvalue"
-                  android:text="@string/original_title_value"/>
-
-
-      </LinearLayout>
-
-      <LinearLayout android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Revenue"
-                  android:textColor="#000000"
-                  android:textSize="17sp"
-                  android:layout_marginRight="16sp"/>
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/revenue"
-                  android:text="@string/original_title_value"/>
-
-
-      </LinearLayout>
-
-
-      <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/overview"
-                android:textColor="@color/cardview_dark_background"
-                android:text="@string/overview"
-                android:textSize="15sp"/>
-
-      <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#000000"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="15sp"
-                android:id="@+id/trailer"
-                android:text="Trailers"/>
-
-      <android.support.v7.widget.RecyclerView
-          android:id="@+id/recycler_view33"
+      <FrameLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:clipToPadding="false"
-          android:scrollbars="horizontal" />
+          android:layout_height="match_parent">
+
+          <ProgressBar
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="50dp"
+              android:id="@+id/info_progressbar"
+              android:layout_gravity="center_horizontal"/>
+
+          <LinearLayout android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_marginLeft="20dp"
+              android:layout_marginBottom="20dp">
 
 
-    </LinearLayout>
 
+              <LinearLayout android:layout_width="wrap_content"
+                  android:layout_marginTop="20dp"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/release"
+                      android:id="@+id/releasetext"
+                      android:textColor="#000000"
+                      android:layout_marginRight="16dp"
+                      android:textSize="17sp"/>
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/date"
+                      android:text="@string/date"/>
+
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/rating"
+                      android:textColor="#000000"
+                      android:id="@+id/ratingtext"
+                      android:textSize="17sp"
+                      android:layout_marginRight="16dp"/>
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/value"
+                      android:text="@string/rate_value"/>
+
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/adult"
+                      android:textColor="#000000"
+                      android:id="@+id/adulttext"
+                      android:textSize="17sp"
+                      android:layout_marginRight="16sp"/>
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/adultvalue"
+                      android:text="@string/adult_value"/>
+
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Budget"
+                      android:textColor="#000000"
+                      android:id="@+id/budget"
+                      android:textSize="17sp"
+                      android:layout_marginRight="16sp"/>
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/budgetvalue"
+                      android:text="@string/original_title_value"/>
+
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_height="wrap_content">
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/Original_title"
+                      android:textColor="#000000"
+                      android:id="@+id/orignaltit"
+                      android:textSize="17sp"
+                      android:layout_marginRight="16sp"/>
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/originaltitvalue"
+                      android:text="@string/original_title_value"/>
+
+
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_height="wrap_content">
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Revenue"
+                      android:textColor="#000000"
+                      android:textSize="17sp"
+                      android:layout_marginRight="16sp"/>
+
+                  <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/revenue"
+                      android:text="@string/original_title_value"/>
+
+
+              </LinearLayout>
+
+
+              <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/overview"
+                  android:textColor="@color/cardview_dark_background"
+                  android:text="@string/overview"
+                  android:textSize="15sp"/>
+
+              <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="17sp"
+                  android:textColor="#000000"
+                  android:layout_marginTop="25dp"
+                  android:layout_marginBottom="15sp"
+                  android:id="@+id/trailer"
+                  android:text="Trailers"/>
+
+              <android.support.v7.widget.RecyclerView
+                  android:id="@+id/recycler_view33"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:clipToPadding="false"
+                  android:scrollbars="horizontal" />
+
+
+          </LinearLayout>
+
+
+      </FrameLayout>
 
 
   </ScrollView>

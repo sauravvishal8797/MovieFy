@@ -3,6 +3,7 @@ package android.example.com.popularmovies.Fragments;
 import android.content.SharedPreferences;
 import android.example.com.popularmovies.Adapters.ViewPagerFragmentAdapter;
 import android.example.com.popularmovies.JavaClasses.Constants;
+import android.example.com.popularmovies.JavaClasses.Movies;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
