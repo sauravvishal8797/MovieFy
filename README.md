@@ -1,6 +1,6 @@
 # MovieFy
 
-An app to display the current happenings in the world of entertainment including movies, tv series, music.  This project is a part of
+An app to display the current happenings in the world of movies.  This project is a part of
 Android Developer Nanodegree course from Udacity.
 
 ## How to run the application
