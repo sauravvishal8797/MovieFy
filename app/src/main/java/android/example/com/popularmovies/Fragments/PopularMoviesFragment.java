@@ -3,6 +3,7 @@ package android.example.com.popularmovies.Fragments;
 
 import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
 import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
+import static android.example.com.popularmovies.JavaClasses.Constants.ID;
 import static android.example.com.popularmovies.JavaClasses.Constants.IMAGE_URL;
 import static android.example.com.popularmovies.JavaClasses.Constants.MOVIE_TITLE;
 import static android.example.com.popularmovies.JavaClasses.Constants.ORIGINAL_TITLE;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.example.com.popularmovies.Activity.DetailsView;
 import android.example.com.popularmovies.Adapters.MoviesAdapter;
 import android.example.com.popularmovies.JavaClasses.Constants;
+import android.example.com.popularmovies.JavaClasses.EndlessRecyclerViewScrollListener;
 import android.example.com.popularmovies.JavaClasses.Movies;
 import android.example.com.popularmovies.JavaClasses.NetworkUtils;
 import android.net.ConnectivityManager;
@@ -47,7 +49,6 @@ import android.widget.Toast;
  */
 public class PopularMoviesFragment extends Fragment {
 
-
     private ArrayList<Movies> movies;
     private static final String LOG_TAG = PopularMoviesFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
@@ -55,6 +56,23 @@ public class PopularMoviesFragment extends Fragment {
     private RecyclerView recyclerView;
     private MoviesAdapter moviesAdapter;
     private SwipeRefreshLayout layout;
+
+    private EndlessRecyclerViewScrollListener endlessRecyclerViewScrollListener;
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Movies m = (Movies) view.findViewById(R.id.thumbnail).getTag();
+            Log.i("lalalala", m.getName());
+            Intent intent = new Intent(getContext(), DetailsView.class);
+            Log.i(LOG_TAG, m.getName());
+            Log.i(LOG_TAG, m.getUrl());
+            intent.putExtra("url", m.getUrl());
+            intent.putExtra(ID, m.getId());
+            startActivity(intent);
+
+        }
+    };
 
 
     public PopularMoviesFragment() {
@@ -73,14 +91,27 @@ public class PopularMoviesFragment extends Fragment {
                 Checknetworkinfo();
             }
         });
-
-
         recyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view33);
         recyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
+        endlessRecyclerViewScrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+
+                loadNextDataFromApi(page);
+
+            }
+        };
         Checknetworkinfo();
+       // Log.i("opppp", String.valueOf(movies.size()));
         return rootview;
+    }
+
+    public void loadNextDataFromApi(int offset){
+
+        new GetMoviesTask().execute("https://api.themoviedb" +
+                ".org/3/movie/popular?api_key=e2a51d701ca40655dbb7d5156ff2f42e&append_to_response=credits&&"
+                + "page=" + offset );
     }
 
     private void Checknetworkinfo() {
@@ -107,6 +138,7 @@ public class PopularMoviesFragment extends Fragment {
             super.onPreExecute();
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("LOading");
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
         }
 
@@ -128,6 +160,7 @@ public class PopularMoviesFragment extends Fragment {
                     String summary = object.getString("overview");
                     String adultv = object.getString("adult");
                     String title = object.getString("original_title");
+                    String id = object.getString("id");
                     Movies m = new Movies();
                     m.setUrl(BASE_URL + posterurl);
                     m.SetName(name);
@@ -136,6 +169,7 @@ public class PopularMoviesFragment extends Fragment {
                     m.setRating(rating);
                     m.setAdultvalue(adultv);
                     m.setOriginalTitle(title);
+                    m.setId(id);
                     movies.add(m);
 
                 }
@@ -152,38 +186,15 @@ public class PopularMoviesFragment extends Fragment {
                 Log.i(LOG_TAG, movies.get(2).getName());
                 progressDialog.dismiss();
                 layout.setRefreshing(false);
-
-
-
-                moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
-                    @Override public void OnItemClick(int position) {
-                        Intent intent = new Intent(getContext(), DetailsView.class);
-
-                        Movies movies1 = movies.get(position);
-                        Log.i(LOG_TAG, movies1.getName());
-                        Log.i(LOG_TAG, movies1.getUrl());
-                        intent.putExtra(MOVIE_TITLE, movies1.getName());
-                        intent.putExtra(SYNOPSIS, movies1.getOverview());
-                        intent.putExtra(IMAGE_URL, movies1.getUrl());
-                        intent.putExtra(ADULT, movies1.getAdultvalue());
-                        intent.putExtra(RATING, movies1.getRating());
-                        intent.putExtra(RELEASE_DATE, movies1.getReleasedate());
-                        intent.putExtra(ORIGINAL_TITLE, movies1.getOriginalTitle());
-                        startActivity(intent);
-                    }
-                });
-
+                moviesAdapter = new MoviesAdapter(movies);
+                //moviesAdapter.setOnClickListener(onClickListener);
+                moviesAdapter.setOnClickListener(onClickListener);
                 recyclerView.setAdapter(moviesAdapter);
             }
-
-
             else {
                 Log.e(LOG_TAG, "Null arraylist returned");
             }
         }
 
     }
-
-
-
 }

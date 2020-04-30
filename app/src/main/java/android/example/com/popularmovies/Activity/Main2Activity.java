@@ -1,6 +1,7 @@
 package android.example.com.popularmovies.Activity;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.example.com.popularmovies.R;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -65,6 +66,8 @@ public class Main2Activity extends AppCompatActivity
 
             //noinspection SimplifiableIfStatement
             if (id == R.id.action_settings) {
+                Intent intent = new Intent(Main2Activity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             }
 

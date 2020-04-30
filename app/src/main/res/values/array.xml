@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <array name="list_entries">
+    <item> High </item>
+    <item> Low </item>
+    <item> Medium </item>
+  </array>
+
+  <array name="list_entry_values">
+    <item> high </item>
+    <item> low </item>
+    <item> medium </item>
+  </array>
+</resources>

@@ -20,23 +20,16 @@ import android.widget.TextView;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder> {
 
     private final ArrayList<Movies> moviesArrayList;
-    private final OnItemClickListener mItemClickListener;
+    //private final OnItemClickListener mItemClickListener;
+    private View.OnClickListener onClickListener;
 
-    public MoviesAdapter(ArrayList<Movies> movies, OnItemClickListener onItemClickListener){
-
+    public MoviesAdapter(ArrayList<Movies> movies){
         moviesArrayList = movies;
-        mItemClickListener = onItemClickListener;
-
-
     }
-    public interface OnItemClickListener {
-
-        void OnItemClick(int position);
-    }
-
 
     @Override public Viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardviewitem, parent, false);
+        view.setOnClickListener(onClickListener);
         return new Viewholder(view);
 
     }
@@ -49,8 +42,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
                 .drawable.birthdaycard)
                 .into(holder
                 .imageView);
+        holder.imageView.setTag(m);
+    }
 
-
+    public void setOnClickListener(View.OnClickListener monClickListener){
+       onClickListener = monClickListener;
     }
 
 
@@ -58,7 +54,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
         return moviesArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class Viewholder extends RecyclerView.ViewHolder{
 
         private TextView name;
         private ImageView imageView;
@@ -68,13 +64,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.Viewholder
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.title);
             imageView  = (ImageView) itemView.findViewById(R.id.thumbnail);
-            itemView.setOnClickListener(this);
-        }
-
-
-        @Override public void onClick(View view) {
-            int pos = getAdapterPosition();
-            mItemClickListener.OnItemClick(pos);
         }
     }
 }

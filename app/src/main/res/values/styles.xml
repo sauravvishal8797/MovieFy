@@ -17,5 +17,16 @@
   </style>
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+  <style name="AppTheme.2" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+  </style>
+  <style name="menu_labels_style">
+    <item name="android:background">@drawable/books</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
 
 </resources>

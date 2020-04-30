@@ -3,6 +3,7 @@ package android.example.com.popularmovies.Fragments;
 
 import static android.example.com.popularmovies.JavaClasses.Constants.ADULT;
 import static android.example.com.popularmovies.JavaClasses.Constants.BASE_URL;
+import static android.example.com.popularmovies.JavaClasses.Constants.ID;
 import static android.example.com.popularmovies.JavaClasses.Constants.IMAGE_URL;
 import static android.example.com.popularmovies.JavaClasses.Constants.MOVIE_TITLE;
 import static android.example.com.popularmovies.JavaClasses.Constants.ORIGINAL_TITLE;
@@ -106,6 +107,7 @@ public class TopRatedMoviesFragment extends Fragment {
             super.onPreExecute();
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("LOading");
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
         }
 
@@ -127,6 +129,7 @@ public class TopRatedMoviesFragment extends Fragment {
                     String summary = object.getString("overview");
                     String adultv = object.getString("adult");
                     String title = object.getString("original_title");
+                    String id = object.getString("id");
                     Movies m = new Movies();
                     m.setUrl(BASE_URL + posterurl);
                     m.SetName(name);
@@ -135,6 +138,7 @@ public class TopRatedMoviesFragment extends Fragment {
                     m.setRating(rating);
                     m.setAdultvalue(adultv);
                     m.setOriginalTitle(title);
+                    m.setId(id);
                     movies.add(m);
 
                 }
@@ -151,23 +155,7 @@ public class TopRatedMoviesFragment extends Fragment {
                 Log.i(LOG_TAG, movies.get(2).getName());
                 progressDialog.dismiss();
                 layout.setRefreshing(false);
-                moviesAdapter = new MoviesAdapter(movies, new MoviesAdapter.OnItemClickListener() {
-                    @Override public void OnItemClick(int position) {
-                        Intent intent = new Intent(getContext(), DetailsView.class);
-
-                        Movies movies1 = movies.get(position);
-                        Log.i(LOG_TAG, movies1.getName());
-                        Log.i(LOG_TAG, movies1.getUrl());
-                        intent.putExtra(MOVIE_TITLE, movies1.getName());
-                        intent.putExtra(SYNOPSIS, movies1.getOverview());
-                        intent.putExtra(IMAGE_URL, movies1.getUrl());
-                        intent.putExtra(ADULT, movies1.getAdultvalue());
-                        intent.putExtra(RATING, movies1.getRating());
-                        intent.putExtra(RELEASE_DATE, movies1.getReleasedate());
-                        intent.putExtra(ORIGINAL_TITLE, movies1.getOriginalTitle());
-                        startActivity(intent);
-                    }
-                });
+                moviesAdapter = new MoviesAdapter(movies);
 
                 recyclerView.setAdapter(moviesAdapter);
             }
